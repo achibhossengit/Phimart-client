@@ -3,7 +3,7 @@ import product_img from "../../images/default_product.jpg"
 
 const ProductItems = ({ product }) => {
   return (
-    <div className="card bg-base-100 w-96 shadow-sm">
+    <div className="card bg-base-100 w-96 shadow-sm transform hover:scale-105 cursor-pointer">
       <figure className="px-10 pt-10">
         <img
           src={product.images.length > 0 ? product.images[0].image : product_img}

@@ -20,57 +20,66 @@ const Products = () => {
     setLoading(true);
     apiClient
       .get("/products")
-      .then((res) => {setProducts(res.data.results)})
-      .catch((err) => {setError(err.message)})
-      .finally(() => setLoading(false))
+      .then((res) => {
+        setProducts(res.data.results);
+      })
+      .catch((err) => {
+        setError(err.message);
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   return (
-    <section className="my-10">
-      <div className="flex justify-between items-center px-5">
-        <h2 className="text-3xl font-bold">Trending Products</h2>
-        <button className="btn btn-secondary">View All</button>
+    <section className="my-10 bg-gray-100 rounded-lg shadow-lg p-5">
+      {/* Header Section */}
+      <div className="flex justify-between items-center mb-5">
+        <h2 className="text-3xl font-bold text-gray-800">Trending Products</h2>
+        <button className="btn btn-primary bg-pink-500 hover:bg-pink-600 border-none">
+          View All
+        </button>
       </div>
-      <div>
-        {/* spining */}
-        {isLoading && (
-          <div className="text-center py-10">
-            <span className="loading loading-dots loading-xl text-pink-500"></span>
-          </div>
-        )}
-        {/* handle error */}
-        {error && (
-          <p className="text-center font-semibold text-pink-500 py-10">
-            {error}
-          </p>
-        )}
 
-        {!isLoading && !error && products.length == 0 && (
-          <p className="text-center font-semibold text-pink-500 py-10">
-            No product available right now!
-          </p>
-        )}
+      {/* Loading Spinner */}
+      {isLoading && (
+        <div className="text-center py-10">
+          <span className="loading loading-dots loading-xl text-pink-500"></span>
+        </div>
+      )}
 
-        {/* product carousel slider */}
+      {/* Error Message */}
+      {error && (
+        <p className="text-center font-semibold text-pink-500 py-10">{error}</p>
+      )}
+
+      {/* No Products Available */}
+      {!isLoading && !error && products.length === 0 && (
+        <p className="text-center font-semibold text-gray-500 py-10">
+          No products available right now!
+        </p>
+      )}
+
+      {/* Product Carousel */}
+      <div className=" container mx-auto">
         {!isLoading && !error && products.length > 0 && (
           <Swiper
             centeredSlides={true}
             slidesPerView={1}
-            // loop={true}
+            spaceBetween={5}
+            loop = {true}
             breakpoints={{
-              768: { slidesPerView: 2, spaceBetween: 10 },
-              1024: { slidesPerView: 3, spaceBetween: 10 },
+              640: { slidesPerView: 1, spaceBetween: 20 },
+              768: { slidesPerView: 2, spaceBetween: 20 },
+              1024: { slidesPerView: 3, spaceBetween: 20 },
             }}
             autoplay={{
               delay: 5000,
               disableOnInteraction: false,
             }}
-            navigation={true}
-            modules={[Autoplay, Navigation]}
+            modules={[Autoplay]}
             className="mySwiper"
           >
             {products.map((product) => (
-              <SwiperSlide key={product.id}>
+              <SwiperSlide key={product.id} className="flex justify-center">
                 <ProductItems product={product} />
               </SwiperSlide>
             ))}
