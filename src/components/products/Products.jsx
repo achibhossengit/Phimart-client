@@ -9,7 +9,6 @@ import "swiper/css/navigation";
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import ProductItems from "./ProductItems";
 import apiClient from "../../services/api-client";
 
