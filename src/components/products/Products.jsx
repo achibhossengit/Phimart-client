@@ -59,7 +59,7 @@ const Products = () => {
       )}
 
       {/* Product Carousel */}
-      <div className=" container mx-auto">
+      <div className=" container mx-auto justify-items-center">
         {!isLoading && !error && products.length > 0 && (
           <Swiper
             centeredSlides={true}
@@ -79,7 +79,7 @@ const Products = () => {
             className="mySwiper"
           >
             {products.map((product) => (
-              <SwiperSlide key={product.id} className="flex justify-center">
+              <SwiperSlide key={product.id}>
                 <ProductItems product={product} />
               </SwiperSlide>
             ))}

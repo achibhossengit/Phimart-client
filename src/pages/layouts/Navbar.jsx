@@ -1,3 +1,5 @@
+import { NavLink } from "react-router";
+
 const Navbar = () => {
   return (
     <div className="navbar bg-base-100 shadow-sm">
@@ -25,7 +27,7 @@ const Navbar = () => {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             <li>
-              <a>Item 1</a>
+              <a>About</a>
             </li>
             <li>
               <a>Parent</a>
@@ -39,16 +41,16 @@ const Navbar = () => {
               </ul>
             </li>
             <li>
-              <a>Item 3</a>
+              <NavLink to="/shop" >Shop</NavLink>
             </li>
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <NavLink to="/" className="btn btn-ghost text-xl">PhiMart</NavLink>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <a>Item 1</a>
+            <a>About</a>
           </li>
           <li>
             <details>
@@ -64,7 +66,7 @@ const Navbar = () => {
             </details>
           </li>
           <li>
-            <a>Item 3</a>
+            <NavLink to="/shop">Shop</NavLink>
           </li>
         </ul>
       </div>

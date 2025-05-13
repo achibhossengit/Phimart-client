@@ -24,7 +24,6 @@ const Categories = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  console.log(categoires);
   return (
     <section className="bg-gray-100 rounded-lg shadow-lg my-10 py-5 px-5">
       <div className="flex justify-between mb-5">
