@@ -9,7 +9,7 @@ import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 import CategoryItems from "./CategoryItems";
 import { useEffect, useState } from "react";
-import apiClient from "../../services/api-client";
+import apiClient from "../../../services/api-client";
 
 const Categories = () => {
   const [categoires, setCategories] = useState([]);

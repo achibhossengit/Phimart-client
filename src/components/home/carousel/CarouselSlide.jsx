@@ -1,4 +1,4 @@
-import bannerbg from "../../images/banner-image-bg.jpg"
+import bannerbg from "../../../images/banner-image-bg.jpg"
 const CarouselSlide = ({title, subtitle, img}) => {
   return (
     <div>
