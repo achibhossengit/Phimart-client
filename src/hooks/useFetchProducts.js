@@ -15,8 +15,8 @@ const useFetchProducts = (currentPage) => {
         const data = await response.data;
         setProducts(data.results);
         setTotalPages(Math.ceil(data.count / data.results.length));
-      } catch {
-        setError(data.error.message);
+      } catch(err) {
+        setError(err.message);
       } finally {
         setLoading(false);
       }
