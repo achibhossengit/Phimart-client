@@ -1,46 +1,11 @@
-import React, { useEffect, useState } from "react";
-import apiClient from "../../services/api-client";
+import { useState } from "react";
 import ProductList from "./ProductList";
 import Pagination from "./Pagination";
+import useFetchProducts from "../../hooks/useFetchProducts";
 
 const ShopPage = () => {
-  const [products, setProducts] = useState([]);
-  const [isLoading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [totalPages, setTotalPages] = useState(0);
-  let [currentPage, setCurrentPage] = useState(1);
-
-  useEffect(() => {
-    fetchProducts();
-  }, [currentPage]);
-
-  //   const fetchProducts = () => {
-  //     setLoading(true);
-  //     apiClient
-  //       .get(`/products/?page=${currentPage}`)
-  //       .then((res) => {
-  //         setProducts(res.data.results);
-  //         setTotalPages(Math.ceil(res.data.count / res.data.results.length));
-  //         console.log(res.data);
-  //       })
-  //       .catch((err) => setError(err.message))
-  //       .finally(() => setLoading(false));
-  //   };
-
-  const fetchProducts = async () => {
-    setLoading(true);
-    try {
-      const response = await apiClient.get(`/products/?page=${currentPage}`);
-      const data = await response.data;
-
-      setProducts(data.results);
-      setTotalPages(Math.ceil(data.count / data.results.length));
-    } catch {
-      setError(data.error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [currentPage, setCurrentPage] = useState(1);
+  const {products, isLoading, error, totalPages} = useFetchProducts(currentPage)
 
   return (
     <div>
