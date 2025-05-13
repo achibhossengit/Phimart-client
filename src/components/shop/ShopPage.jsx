@@ -11,21 +11,45 @@ const ShopPage = () => {
   let [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    setLoading(true);
-    apiClient
-      .get(`/products/?page=${currentPage}`)
-      .then((res) => {
-        setProducts(res.data.results);
-        setTotalPages(Math.ceil(res.data.count / res.data.results.length));
-        console.log(res.data);
-      })
-      .catch((err) => setError(err.message))
-      .finally(() => setLoading(false));
+    fetchProducts();
   }, [currentPage]);
+
+  //   const fetchProducts = () => {
+  //     setLoading(true);
+  //     apiClient
+  //       .get(`/products/?page=${currentPage}`)
+  //       .then((res) => {
+  //         setProducts(res.data.results);
+  //         setTotalPages(Math.ceil(res.data.count / res.data.results.length));
+  //         console.log(res.data);
+  //       })
+  //       .catch((err) => setError(err.message))
+  //       .finally(() => setLoading(false));
+  //   };
+
+  const fetchProducts = async () => {
+    setLoading(true);
+    try {
+      const response = await apiClient.get(`/products/?page=${currentPage}`);
+      const data = await response.data;
+
+      setProducts(data.results);
+      setTotalPages(Math.ceil(data.count / data.results.length));
+    } catch {
+      setError(data.error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div>
       <ProductList products={products} isLoading={isLoading} error={error} />
-      <Pagination totalPages={totalPages} currentPage={currentPage} handlePageChange={setCurrentPage}/>
+      <Pagination
+        totalPages={totalPages}
+        currentPage={currentPage}
+        handlePageChange={setCurrentPage}
+      />
     </div>
   );
 };
