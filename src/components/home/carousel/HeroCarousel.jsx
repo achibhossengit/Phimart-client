@@ -11,9 +11,9 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import CarouselSlide from './CarouselSlide';
 
 // images
-import slide1 from "../../../images/banner-image1.png"
-import slide2 from "../../../images/banner-image2.png"
-import slide3 from "../../../images/banner-image3.png"
+import slide1 from "../../../assets/images/banner-image1.png"
+import slide2 from "../../../assets/images/banner-image2.png"
+import slide3 from "../../../assets/images/banner-image3.png"
 
 const HeroCarousel = () => {
     const sildes = [
