@@ -43,7 +43,7 @@ const Categories = () => {
             <p className="text-pink-500 text-center font-semibold">{error}</p>
         </div>
       )}
-      {!isLoading && error && categoires.length == 0 && (
+      {!isLoading && !error && categoires.length == 0 && (
         <p className="text-pink-500 text-center font-semibold">No category Available right now!</p>
       )}
 

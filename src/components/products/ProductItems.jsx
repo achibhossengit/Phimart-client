@@ -13,6 +13,7 @@ const ProductItems = ({ product }) => {
       </figure>
       <div className="card-body items-center text-center">
         <h2 className="card-title">{product.name}</h2>
+        <p className="font-semibold">$ {product.price}</p>
         <p>{product.description}</p>
         <div className="card-actions">
           <button className="btn btn-secondary">Buy Now</button>

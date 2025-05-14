@@ -2,13 +2,26 @@ import { useState } from "react";
 import ProductList from "./ProductList";
 import Pagination from "./Pagination";
 import useFetchProducts from "../../hooks/useFetchProducts";
+import FilteringSection from "./FilteringSection";
 
 const ShopPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const {products, isLoading, error, totalPages} = useFetchProducts(currentPage)
+  const [priceRange, setPriceRange] = useState([0, 1000])
+  const {products, isLoading, error, totalPages} = useFetchProducts(currentPage, priceRange)
+
+  const handlePriceRange = (index, value) =>{
+    setPriceRange((prev) => {
+      const newRange = [...prev];
+      newRange[index] = value;
+      return newRange;
+    });
+    setCurrentPage(1)
+  }
 
   return (
-    <div>
+    <div className="max-w-7xl mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold text-gray-700">Shop Our Products</h1>
+      <FilteringSection priceRange={priceRange} handlePriceRange={handlePriceRange}/>
       <ProductList products={products} isLoading={isLoading} error={error} />
       <Pagination
         totalPages={totalPages}
