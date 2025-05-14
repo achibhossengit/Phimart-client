@@ -1,4 +1,4 @@
-const FilteringSection = ({ priceRange, handlePriceRange }) => {
+const FilteringSection = ({ priceRange, handlePriceRange, categories, handleSelectedCategory}) => {
   return (
     <div className="my-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-10 shadow-md rounded-md p-5">
       {/* price range */}
@@ -54,10 +54,11 @@ const FilteringSection = ({ priceRange, handlePriceRange }) => {
       {/* category div */}
       <div>
         <label className="text-sm font-semibold text-gray-600">Category</label>
-        <select className="w-full block border border-gray-600 rounded-sm text-gray-700 focus:outline-none">
+        <select onChange={event => handleSelectedCategory(event.target.value)} className="w-full block border border-gray-600 rounded-sm text-gray-700 focus:outline-none">
           <option value="">All Categories</option>
-          <option value="1">Book</option>
-          <option value="2">Fashion</option>
+          {categories.map(category => (
+            <option key={category.id} value={category.id}>{category.name}</option>
+          ))}
         </select>
       </div>
 

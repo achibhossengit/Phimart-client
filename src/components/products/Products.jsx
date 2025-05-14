@@ -11,11 +11,14 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { useEffect, useState } from "react";
 import ProductItems from "./ProductItems";
 import apiClient from "../../services/api-client";
+import useFetchCategories from "../../hooks/useFetchCategories";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const categories = useFetchCategories()
+  // console.log(categories);
   useEffect(() => {
     setLoading(true);
     apiClient
@@ -80,7 +83,7 @@ const Products = () => {
           >
             {products.map((product) => (
               <SwiperSlide key={product.id}>
-                <ProductItems product={product} />
+                <ProductItems product={product} categories={categories}/>
               </SwiperSlide>
             ))}
           </Swiper>

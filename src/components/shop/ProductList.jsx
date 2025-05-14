@@ -1,6 +1,8 @@
+import useFetchCategories from "../../hooks/useFetchCategories";
 import ProductItems from "../products/ProductItems";
 
 const ProductList = ({ products, isLoading, error }) => {
+  const categories = useFetchCategories()
   const classes =
     "text-pink-500 text-center h-screen flex justify-center items-center";
   if (isLoading) {
@@ -27,7 +29,7 @@ const ProductList = ({ products, isLoading, error }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 justify-items-center">
       {products.map((product) => (
-        <ProductItems key={product.id} product={product} />
+        <ProductItems key={product.id} product={product} categories={categories}/>
       ))}
     </div>
   );
