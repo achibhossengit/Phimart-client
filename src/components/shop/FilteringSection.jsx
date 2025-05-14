@@ -1,4 +1,13 @@
-const FilteringSection = ({ priceRange, handlePriceRange, categories, handleSelectedCategory, searchQuary, handleSearchQuary}) => {
+const FilteringSection = ({
+  priceRange,
+  handlePriceRange,
+  categories,
+  handleSelectedCategory,
+  searchQuary,
+  handleSearchQuary,
+  sortPrice,
+  handleSortPrice,
+}) => {
   return (
     <div className="my-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-10 shadow-md rounded-md p-5">
       {/* price range */}
@@ -54,10 +63,15 @@ const FilteringSection = ({ priceRange, handlePriceRange, categories, handleSele
       {/* category div */}
       <div>
         <label className="text-sm font-semibold text-gray-600">Category</label>
-        <select onChange={event => handleSelectedCategory(event.target.value)} className="w-full block border border-gray-600 rounded-sm text-gray-700 focus:outline-none">
+        <select
+          onChange={(event) => handleSelectedCategory(event.target.value)}
+          className="w-full block border border-gray-600 rounded-sm text-gray-700 focus:outline-none"
+        >
           <option value="">All Categories</option>
-          {categories.map(category => (
-            <option key={category.id} value={category.id}>{category.name}</option>
+          {categories.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
           ))}
         </select>
       </div>
@@ -79,10 +93,14 @@ const FilteringSection = ({ priceRange, handlePriceRange, categories, handleSele
         <label className="text-sm font-semibold text-gray-600">
           Sort By Price
         </label>
-        <select className="w-full block border border-gray-600 rounded-sm text-gray-700 focus:outline-none">
+        <select
+          value={sortPrice}
+          onChange={(event) => handleSortPrice(event.target.value)}
+          className="w-full block border border-gray-600 rounded-sm text-gray-700 focus:outline-none"
+        >
           <option value="">Default</option>
-          <option value="asc">Low to High</option>
-          <option value="desc">High to Low</option>
+          <option value="price">Low to High</option>
+          <option value="-price">High to Low</option>
         </select>
       </div>
     </div>
