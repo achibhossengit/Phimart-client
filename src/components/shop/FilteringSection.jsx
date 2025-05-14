@@ -1,4 +1,4 @@
-const FilteringSection = ({ priceRange, handlePriceRange, categories, handleSelectedCategory}) => {
+const FilteringSection = ({ priceRange, handlePriceRange, categories, handleSelectedCategory, searchQuary, handleSearchQuary}) => {
   return (
     <div className="my-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-10 shadow-md rounded-md p-5">
       {/* price range */}
@@ -67,6 +67,8 @@ const FilteringSection = ({ priceRange, handlePriceRange, categories, handleSele
         <label className="text-sm font-semibold text-gray-600">Search</label>
         <input
           type="text"
+          value={searchQuary}
+          onChange={(event) => handleSearchQuary(event.target.value)}
           placeholder="Search Products..."
           className="w-full block border border-gray-600 rounded-sm text-gray-700 focus:outline-none pl-2"
         />
