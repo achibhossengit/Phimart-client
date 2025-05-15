@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
 
-const useFetchProducts = (currentPage, priceRange, selectedCategory, searchQuary, sortPrice) => {
+const useFetchProducts = (currentPage=1, priceRange=[0,1000], selectedCategory="", searchQuary="", sortPrice="") => {
   const [products, setProducts] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -24,8 +24,8 @@ const useFetchProducts = (currentPage, priceRange, selectedCategory, searchQuary
     };
 
     fetchProducts();
-  }, [currentPage, priceRange, selectedCategory, searchQuary, sortPrice]);
-  return { products, isLoading, error, totalPages };
+  }, [currentPage, selectedCategory, searchQuary, sortPrice]);
+  return { products, isLoading, error, totalPages, sortPrice };
 };
 
 export default useFetchProducts;

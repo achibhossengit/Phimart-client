@@ -12,26 +12,11 @@ import { useEffect, useState } from "react";
 import ProductItems from "./ProductItems";
 import apiClient from "../../services/api-client";
 import useFetchCategories from "../../hooks/useFetchCategories";
+import useFetchProducts from "../../hooks/useFetchProducts";
 
 const Products = () => {
-  const [products, setProducts] = useState([]);
-  const [isLoading, setLoading] = useState(false);
-  const [error, setError] = useState("");
   const categories = useFetchCategories()
-  // console.log(categories);
-  useEffect(() => {
-    setLoading(true);
-    apiClient
-      .get("/products")
-      .then((res) => {
-        setProducts(res.data.results);
-      })
-      .catch((err) => {
-        setError(err.message);
-      })
-      .finally(() => setLoading(false));
-  }, []);
-
+  const {products, isLoading, error, totalPages} = useFetchProducts()
   return (
     <section className="my-10 bg-gray-100 rounded-lg shadow-lg p-5">
       {/* Header Section */}
