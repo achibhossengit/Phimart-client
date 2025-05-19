@@ -24,7 +24,7 @@ const useFetchProducts = (currentPage=1, priceRange=[0,1000], selectedCategory="
     };
 
     fetchProducts();
-  }, [currentPage, selectedCategory, searchQuary, sortPrice]);
+  }, [currentPage, selectedCategory, searchQuary, sortPrice, priceRange]);
   return { products, isLoading, error, totalPages, sortPrice };
 };
 
