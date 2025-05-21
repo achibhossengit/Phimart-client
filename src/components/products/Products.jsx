@@ -7,16 +7,21 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 // import required modules
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import { useEffect, useState } from "react";
+import { Autoplay } from "swiper/modules";
 import ProductItems from "./ProductItems";
-import apiClient from "../../services/api-client";
 import useFetchCategories from "../../hooks/useFetchCategories";
 import useFetchProducts from "../../hooks/useFetchProducts";
 
 const Products = () => {
-  const categories = useFetchCategories()
-  const {products, isLoading, error, totalPages} = useFetchProducts()
+  const categories = useFetchCategories();
+  const [priceRange2, setPriceRange2] = useState([0,1000]);
+  const { products, isLoading, error, totalPages } = useFetchProducts(
+  undefined,
+  priceRange2, // to fix looping issues
+  undefined,
+  undefined,
+  undefined
+  );
   return (
     <section className="my-10 bg-gray-100 rounded-lg shadow-lg p-5">
       {/* Header Section */}
@@ -53,7 +58,7 @@ const Products = () => {
             centeredSlides={true}
             slidesPerView={1}
             spaceBetween={5}
-            loop = {true}
+            loop={true}
             breakpoints={{
               640: { slidesPerView: 1, spaceBetween: 20 },
               768: { slidesPerView: 2, spaceBetween: 20 },
@@ -68,7 +73,7 @@ const Products = () => {
           >
             {products.map((product) => (
               <SwiperSlide key={product.id}>
-                <ProductItems product={product} categories={categories}/>
+                <ProductItems product={product} categories={categories} />
               </SwiperSlide>
             ))}
           </Swiper>
