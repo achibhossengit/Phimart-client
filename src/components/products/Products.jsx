@@ -11,6 +11,7 @@ import { Autoplay } from "swiper/modules";
 import ProductItems from "./ProductItems";
 import useFetchCategories from "../../hooks/useFetchCategories";
 import useFetchProducts from "../../hooks/useFetchProducts";
+import { useState } from "react";
 
 const Products = () => {
   const categories = useFetchCategories();
