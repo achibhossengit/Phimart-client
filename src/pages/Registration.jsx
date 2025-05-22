@@ -1,9 +1,11 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
 import useAuthContext from "../hooks/useAuthContext";
+import { useState } from "react";
 
 const Registration = () => {
-  const { registerUser } = useAuthContext();
+  const { errorMsg, registerUser } = useAuthContext();
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -13,23 +15,45 @@ const Registration = () => {
 
   const onSubmit = async (data) => {
     delete data.confirm_password;
-    console.log(data);
-    try{
-        await registerUser(data);
-    }catch(error){
-        console.log("registration failed", error);
+    setLoading(true);
+    try {
+      await registerUser(data);
+    } catch (error) {
+      console.log("registration failed", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <section className="flex justify-center items-center bg-gray-100 min-h-screen">
       <div className="p-6 bg-white rounded-xl shadow-lg w-full md:w-3/5 lg:w-2/5 space-y-4 m-5">
+        {/* info block */}
+        {errorMsg && (
+          <div role="alert" className="alert alert-success">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 shrink-0 stroke-current"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            {errorMsg}
+          </div>
+        )}
+
         {/* register title */}
         <div>
           <h1 className="font-bold text-2xl text-gray-800">Sign Up</h1>
           <p className="text-gray-600">Create an account to get started</p>
         </div>
-        <form 
+        <form
           onSubmit={handleSubmit(onSubmit)}
           className="text-gray-600 space-y-4"
         >
@@ -102,7 +126,7 @@ const Registration = () => {
                   message: "At least length 8 is required!",
                 },
               })}
-              value="hello@user"
+              // value="hello@user"
               type="password"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-pink-500"
             />
@@ -117,7 +141,7 @@ const Registration = () => {
                 validate: (value) =>
                   value === watch("password") || "Password do not match!",
               })}
-              value="hello@user"
+              // value="hello@user"
               type="password"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-pink-500"
             />
@@ -127,8 +151,11 @@ const Registration = () => {
               </label>
             )}
           </fieldset>
-          <button className="w-full bg-pink-500 text-white py-3 rounded-lg hover:bg-pink-600 focus:outline-none focus:ring focus:ring-pink-300 transition hover:cursor-pointer">
-            Sign Up
+          <button
+            disabled={loading}
+            className="btn btn-primary bg-pink-500 border-none text-white w-full py-2 rounded-lg text-lg font-semibold hover:bg-pink-600 transition-colors"
+          >
+            {loading ? "Creating....." : "Create Account"}
           </button>
         </form>
         {/* sign in option */}

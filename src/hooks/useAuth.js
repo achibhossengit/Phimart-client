@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
-import { Navigate } from "react-router";
 
 const useAuth = () => {
   const [user, setUser] = useState(null);
@@ -49,9 +48,15 @@ const useAuth = () => {
     setErrorMsg("");
     try {
       await apiClient.post("/auth/users/", userData);
+        setErrorMsg("Your account has been created successfully! Now Check your Email to active it.")
     } catch (error) {
-      setErrorMsg(error.response.data?.detail);
-      console.log(error);
+      if(error.response && error.response.data){
+        const errors = Object.values(error.response.data).flat().join("\n");
+        setErrorMsg(errors)
+      }
+      else{
+        setErrorMsg("Registration failed. Something went wrong!")
+      }
     }
   }
 
