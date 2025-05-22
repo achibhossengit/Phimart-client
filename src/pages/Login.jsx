@@ -1,7 +1,7 @@
 import useAuthContext from "../hooks/useAuthContext";
 import { useForm } from "react-hook-form";
 import Alert from "../components/Alert";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useState } from "react";
 
 const Login = () => {
@@ -77,12 +77,12 @@ const Login = () => {
           {/* sign up */}
           <div className="py-5 text-center">
             <span className="text-gray-500">Don’t have an account? </span>
-            <a
-              href=""
+            <Link
+              to='/registration'
               className="text-pink-500 underline hover:text-pink-600 transition-colors"
             >
               Sign up
-            </a>
+            </Link>
           </div>
         </div>
       </div>

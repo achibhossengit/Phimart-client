@@ -2,7 +2,7 @@ import { Link, NavLink } from "react-router";
 import useAuthContext from "../../hooks/useAuthContext";
 
 const Navbar = () => {
-  const { user } = useAuthContext();
+  const { user, logoutUser } = useAuthContext();
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
@@ -144,7 +144,7 @@ const Navbar = () => {
                   <a>Settings</a>
                 </li>
                 <li>
-                  <a>Logout</a>
+                  <a onClick={()=>logoutUser()}>Logout</a>
                 </li>
               </ul>
             </div>
@@ -152,7 +152,7 @@ const Navbar = () => {
         ) : (
           <div className="flex gap-2">
             <Link to='/login' className="btn btn-primary bg-pink-500 border-pink-500 shadow-none text-white">Login</Link>
-            <Link to='/register' className="btn btn-primary bg-pink-500 border-pink-500 shadow-none text-white">Register</Link>
+            <Link to='/registration' className="btn btn-primary bg-pink-500 border-pink-500 shadow-none text-white">Register</Link>
           </div>
         )}        
       </div>

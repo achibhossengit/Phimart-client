@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
+import { Navigate } from "react-router";
 
 const useAuth = () => {
   const [user, setUser] = useState(null);
@@ -42,7 +43,27 @@ const useAuth = () => {
       console.log(error.response.data?.detail);
     }
   };
-  return { user, errorMsg, loginUser};
+
+  // Register user
+  const registerUser = async (userData) => {
+    setErrorMsg("");
+    try {
+      await apiClient.post("/auth/users/", userData);
+    } catch (error) {
+      setErrorMsg(error.response.data?.detail);
+      console.log(error);
+    }
+  }
+
+
+  // logout user
+  const logoutUser = () => {
+    setAuthTokens(null);
+    setUser(null);
+    localStorage.removeItem("authTokens");
+  };
+
+  return { user, errorMsg, loginUser, registerUser, logoutUser };
 };
 
 export default useAuth;
