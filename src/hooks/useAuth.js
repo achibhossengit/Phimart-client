@@ -3,7 +3,7 @@ import apiClient from "../services/api-client";
 
 const useAuth = () => {
   const [user, setUser] = useState(null);
-  const [errorMsg, setErrorMsg] = useState("");
+  const [alert, setAlert] = useState({status: 'none', message:""}); 
 
   const getToken = () => {
     const token = localStorage.getItem("authTokens");
@@ -13,15 +13,15 @@ const useAuth = () => {
   // Login User
   const [authTokens, setAuthTokens] = useState(getToken());
   const loginUser = async (userData) => {
-    setErrorMsg("")
+    setAlert({status: 'none', message:""})
     try {
       const response = await apiClient.post("auth/jwt/create/", userData);
       setAuthTokens(response.data);
       localStorage.setItem("authTokens", JSON.stringify(response.data));
-      return true;
+      setAlert({status:'logged_success', message: 'You are logged in'})
+      return;
     } catch (error) {
-      setErrorMsg(error.response.data?.detail);
-      return false;
+      setAlert({status:'logged_error', message: error.response.data?.detail})
     }
   };
 
@@ -45,17 +45,17 @@ const useAuth = () => {
 
   // Register user
   const registerUser = async (userData) => {
-    setErrorMsg("");
+    setAlert({status: 'none', message:""})
     try {
       await apiClient.post("/auth/users/", userData);
-        setErrorMsg("Your account has been created successfully! Now Check your Email to active it.")
+        setAlert({status:'register_success', message:"Your account has been created successfully! Now Check your Email to active it."})
     } catch (error) {
       if(error.response && error.response.data){
         const errors = Object.values(error.response.data).flat().join("\n");
-        setErrorMsg(errors)
+        setAlert({status:'register_error', message: errors})
       }
       else{
-        setErrorMsg("Registration failed. Something went wrong!")
+        setAlert({status:'register_error', message: "Registration failed. Something went wrong!"})
       }
     }
   }
@@ -68,7 +68,7 @@ const useAuth = () => {
     localStorage.removeItem("authTokens");
   };
 
-  return { user, errorMsg, loginUser, registerUser, logoutUser };
+  return { user, alert, loginUser, registerUser, logoutUser };
 };
 
 export default useAuth;

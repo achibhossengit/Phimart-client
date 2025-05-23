@@ -1,11 +1,14 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import useAuthContext from "../hooks/useAuthContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import AlertError from "../components/AlertError";
+import AlertSuccess from "../components/AlertSuccess";
 
 const Registration = () => {
-  const { errorMsg, registerUser } = useAuthContext();
+  const { alert, registerUser } = useAuthContext();
   const [loading, setLoading] = useState(false);
+  let navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -25,28 +28,20 @@ const Registration = () => {
     }
   };
 
+  useEffect(() => {
+    if (alert.status === "register_success") {
+      setTimeout(() => navigate("/login"), 1000);
+    }
+  }, [alert]);
+
+  console.log(alert);
+
   return (
     <section className="flex justify-center items-center bg-gray-100 min-h-screen">
       <div className="p-6 bg-white rounded-xl shadow-lg w-full md:w-3/5 lg:w-2/5 space-y-4 m-5">
         {/* info block */}
-        {errorMsg && (
-          <div role="alert" className="alert alert-success">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 shrink-0 stroke-current"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            {errorMsg}
-          </div>
-        )}
+        {alert.status === "register_error" && <AlertError message={alert.message} />}
+        {alert.status === "register_success" && <AlertSuccess message={alert.message} />}
 
         {/* register title */}
         <div>
