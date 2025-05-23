@@ -26,7 +26,6 @@ const Login = () => {
 
   useEffect(() => {
     if (alert.status === "logged_success") {
-      console.log(alert);
       navigate("/Dashboard");
     }
   }, [alert.status, navigate]);

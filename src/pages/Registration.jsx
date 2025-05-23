@@ -34,8 +34,6 @@ const Registration = () => {
     }
   }, [alert]);
 
-  console.log(alert);
-
   return (
     <section className="flex justify-center items-center bg-gray-100 min-h-screen">
       <div className="p-6 bg-white rounded-xl shadow-lg w-full md:w-3/5 lg:w-2/5 space-y-4 m-5">

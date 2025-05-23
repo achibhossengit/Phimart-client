@@ -31,7 +31,7 @@ const useAuth = () => {
     }
   }, [authTokens])
 
-  //   fetch profile
+  //   fetch user
   const fetchUserProfile = async () => {
     try {
       const response = await apiClient.get("auth/users/me", {
@@ -68,7 +68,7 @@ const useAuth = () => {
     localStorage.removeItem("authTokens");
   };
 
-  return { user, alert, loginUser, registerUser, logoutUser };
+  return { user, authTokens, alert, loginUser, registerUser, logoutUser };
 };
 
 export default useAuth;
