@@ -8,6 +8,7 @@ import Registration from "../pages/Registration";
 import Dashboard from "../pages/Dashboard";
 import PrivateRoute from "../components/PrivateRoute";
 import Resgister from "../components/register/Resgister";
+import RegisterBlank from "../components/register/RegisterBlank";
 
 const AppRoutes = () => {
   return (
@@ -19,6 +20,7 @@ const AppRoutes = () => {
           <Route path="shop" element={<Shop />} />
           <Route path="login" element={<Login />} />
           <Route path="registration" element={<Registration />} />
+          <Route path="registrationSuccess" element={<RegisterBlank />} />
           <Route path="activate/:uid/:token" element={<Resgister/>} />
         </Route>
         <Route
