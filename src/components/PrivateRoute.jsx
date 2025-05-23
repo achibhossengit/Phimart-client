@@ -8,7 +8,6 @@ const PrivateRoute = ({children}) => {
     if(!authTokens) {
         return <Navigate to='/login'></Navigate>;
     }
-    console.log(!authTokens);
     if (user === null) return <Loading/>;
     return user ? children : <Navigate to='/login'></Navigate>;
 };

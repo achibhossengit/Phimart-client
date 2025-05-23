@@ -7,6 +7,7 @@ import Login from "../pages/Login";
 import Registration from "../pages/Registration";
 import Dashboard from "../pages/Dashboard";
 import PrivateRoute from "../components/PrivateRoute";
+import Resgister from "../components/register/Resgister";
 
 const AppRoutes = () => {
   return (
@@ -18,6 +19,7 @@ const AppRoutes = () => {
           <Route path="shop" element={<Shop />} />
           <Route path="login" element={<Login />} />
           <Route path="registration" element={<Registration />} />
+          <Route path="activate/:uid/:token" element={<Resgister/>} />
         </Route>
         <Route
           path="dashboard"
