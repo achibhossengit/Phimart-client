@@ -30,7 +30,7 @@ const Registration = () => {
 
   useEffect(() => {
     if (alert.status === "register_success") {
-      setTimeout(() => navigate("/login"), 1000);
+      setTimeout(() => navigate("/registrationSuccess"));
     }
   }, [alert]);
 
@@ -119,7 +119,7 @@ const Registration = () => {
                   message: "At least length 8 is required!",
                 },
               })}
-              // value="hello@user"
+              value="hello@user"
               type="password"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-pink-500"
             />
@@ -134,7 +134,7 @@ const Registration = () => {
                 validate: (value) =>
                   value === watch("password") || "Password do not match!",
               })}
-              // value="hello@user"
+              value="hello@user"
               type="password"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-pink-500"
             />

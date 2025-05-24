@@ -16,11 +16,10 @@ const Dashboard = () => {
     setOpenSidebar(!openSidebar);
   };
 
-  console.log(user);
   return (
     <section className="">
-      <Navbar handleSidebar={handleSidebar} user={user} logoutUser={logoutUser} />
-      <Sidebar openSidebar={openSidebar} handleSidebar={handleSidebar} />
+      <Navbar handleSidebar={handleSidebar} openSidebar={openSidebar} user={user} logoutUser={logoutUser} />
+      <Sidebar openSidebar={openSidebar} />
 
       <div onClick={() => setOpenSidebar(false)} className="w-full px-5 min-h-screen">
         <div className="flex justify-around flex-wrap gap-5 mt-5">
