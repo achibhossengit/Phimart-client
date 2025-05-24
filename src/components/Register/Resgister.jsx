@@ -29,7 +29,7 @@ const Register = () => {
   }, [uid, token, navigate]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 flex justify-center items-center p-4">
+    <div className="min-h-screen bg-gradient-to-r from-pink-00 to-red-100 flex justify-center items-center p-4">
       <div className="bg-white shadow-2xl rounded-lg p-6 max-w-md w-full">
         <h1 className="text-2xl font-bold text-gray-800 text-center mb-4">Activate Your Account</h1>
         {loading && (

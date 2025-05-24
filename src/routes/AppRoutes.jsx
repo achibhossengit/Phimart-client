@@ -10,6 +10,7 @@ import PrivateRoute from "../components/PrivateRoute";
 import Resgister from "../components/register/Resgister";
 import RegisterBlank from "../components/register/RegisterBlank";
 import DashboardLayout from "../pages/layouts/DashboardLayout";
+import ProflePage from "../pages/ProflePage";
 
 const AppRoutes = () => {
   return (
@@ -34,6 +35,7 @@ const AppRoutes = () => {
           }
         >
           <Route index element={<Dashboard />} />
+          <Route path="profile" element={<ProflePage />} />
         </Route>
       </Routes>
     </>

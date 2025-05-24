@@ -60,6 +60,19 @@ const useAuth = () => {
     }
   }
 
+  // update user
+
+  const updateUserProfile = async(userData) => {
+    setAlert({status: 'none', message:""})
+    try{
+      await apiClient.put("/auth/users/me/", userData, {headers:{
+        Authorization: `JWT ${authTokens?.access}`
+      }})
+    }catch (error){
+      console.log(error);
+    }
+  }
+
 
   // logout user
   const logoutUser = () => {
@@ -68,7 +81,7 @@ const useAuth = () => {
     localStorage.removeItem("authTokens");
   };
 
-  return { user, authTokens, alert, loginUser, registerUser, logoutUser };
+  return { user, authTokens, alert, loginUser, registerUser, logoutUser, updateUserProfile };
 };
 
 export default useAuth;
