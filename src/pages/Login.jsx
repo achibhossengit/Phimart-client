@@ -35,7 +35,7 @@ const Login = () => {
       <div className="w-full md:w-1/2 lg:w-1/3 min-h-screen flex justify-center items-center mx-auto px-5 md:px-0">
         <div className="bg-white p-6 rounded-lg w-full shadow-lg border border-gray-200">
           {/* alert component */}
-          {alert.status === "error" && <AlertError message={alert.message} />}
+          {alert.status === "logged_error" && <AlertError message={alert.message} />}
           <h1 className="text-2xl font-bold text-gray-800 text-center mb-2">
             Sign In
           </h1>
@@ -65,7 +65,7 @@ const Login = () => {
                 Password
               </legend>
               <input
-                value={"hello@user"}
+                // value={"hello@user"}
                 {...register("password", { required: true })}
                 type="password"
                 className="input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-pink-500 focus:border-pink-500"
