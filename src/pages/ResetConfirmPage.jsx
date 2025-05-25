@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router";
 import useAuthContext from "../hooks/useAuthContext";
 import AlertSuccess from "../components/AlertSuccess";
 import AlertError from "../components/AlertError";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ResetConfirmPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -28,12 +28,14 @@ const ResetConfirmPage = () => {
       setIsLoading(false);
     }
   };
-  
-  if (alert.status == "confirm_success") {
-    setTimeout(() => {
-      navigate("/login");
-    }, 3000);
-  }
+
+  useEffect(() => {
+    if (alert.status == "confirm_success") {
+      setTimeout(() => {
+        navigate("/login");
+      }, 3000);
+    }
+  }, [alert]);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
