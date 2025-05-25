@@ -9,6 +9,7 @@ const Registration = () => {
   const { alert, registerUser } = useAuthContext();
   const [loading, setLoading] = useState(false);
   let navigate = useNavigate();
+  const [email, setEmail] = useState('');
   const {
     register,
     handleSubmit,
@@ -19,6 +20,7 @@ const Registration = () => {
   const onSubmit = async (data) => {
     delete data.confirm_password;
     setLoading(true);
+    setEmail(data.email);
     try {
       await registerUser(data);
     } catch (error) {
@@ -30,7 +32,7 @@ const Registration = () => {
 
   useEffect(() => {
     if (alert.status === "register_success") {
-      setTimeout(() => navigate("/registrationSuccess"));
+      setTimeout(() => navigate(`/registrationSuccess/${email}`));
     }
   }, [alert]);
 

@@ -24,7 +24,7 @@ const AppRoutes = () => {
           <Route path="shop" element={<Shop />} />
           <Route path="login" element={<Login />} />
           <Route path="registration" element={<Registration />} />
-          <Route path="registrationSuccess" element={<RegisterBlank />} />
+          <Route path="registrationSuccess/:email" element={<RegisterBlank />} />
           <Route path="activate/:uid/:token" element={<Resgister />} />
           <Route path="password/reset" element={<ResetPasswordPage />} />
           <Route path="password/reset/confirm/:uid/:token" element={<ResetConfirmPage />} />
