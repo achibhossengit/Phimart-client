@@ -1,10 +1,14 @@
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import useAuthContext from "../hooks/useAuthContext";
 import AlertSuccess from "../components/AlertSuccess";
 import AlertError from "../components/AlertError";
+import { useState } from "react";
 
 const ResetConfirmPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
   const {
     register,
     watch,
@@ -17,8 +21,19 @@ const ResetConfirmPage = () => {
   const onSubmit = async (data) => {
     data.uid = uid;
     data.token = token;
-    await confirmResetPassword(data);
+    setIsLoading(true);
+    try {
+      await confirmResetPassword(data);
+    } finally {
+      setIsLoading(false);
+    }
   };
+  
+  if (alert.status == "confirm_success") {
+    setTimeout(() => {
+      navigate("/login");
+    }, 3000);
+  }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -42,7 +57,7 @@ const ResetConfirmPage = () => {
               {...register("new_password")}
               type="password"
               placeholder="New Password"
-              className="input input-bordered w-full mb-4"
+              className="input input-bordered w-full mb-4 focus:outline-none focus:border-pink-500"
             />
             <input
               {...register("confirm_password", {
@@ -54,7 +69,7 @@ const ResetConfirmPage = () => {
               })}
               type="password"
               placeholder="Confirm Password"
-              className="input input-bordered w-full mb-4"
+              className="input input-bordered w-full mb-4 focus:outline-none focus:border-pink-500"
             />
             {errors.confirm_password && (
               <label className="text-error">
@@ -63,9 +78,11 @@ const ResetConfirmPage = () => {
             )}
             <button
               type="submit"
-              className="btn w-full bg-pink-500 text-white hover:bg-pink-600"
+              className={`${
+                isLoading ? "btn-disabled" : ""
+              } btn w-full bg-pink-500 text-white hover:bg-pink-600 cursor-pointer`}
             >
-              Confirm Reset
+              {isLoading ? "Processing" : "Confirm Reset"}
             </button>
           </form>
         </div>

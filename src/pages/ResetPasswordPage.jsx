@@ -2,9 +2,11 @@ import { useForm } from "react-hook-form";
 import useAuthContext from "../hooks/useAuthContext";
 import AlertError from "../components/AlertError";
 import AlertSuccess from "../components/AlertSuccess";
+import { useState } from "react";
 
 const ResetPasswordPage = () => {
   const { resetPassword, alert } = useAuthContext();
+  const [isLoading, setIsLoading] = useState(false)
   const {
     register,
     handleSubmit,
@@ -12,7 +14,12 @@ const ResetPasswordPage = () => {
   } = useForm();
 
   const onSubmit = async(data) => {
-    await resetPassword(data);
+    setIsLoading(true);
+    try{
+      await resetPassword(data);
+    }finally {
+      setIsLoading(false)
+    }
   };
 
   return (
@@ -42,9 +49,9 @@ const ResetPasswordPage = () => {
             />
             <button
               type="submit"
-              className="btn w-full bg-pink-500 text-white hover:bg-pink-600"
+              className={`${isLoading ? 'btn-disabled': ''} btn w-full bg-pink-500 text-white hover:bg-pink-600 cursor-pointer`}
             >
-              Reset Password
+              {isLoading ? 'Sending Email' : 'Reset Password'}
             </button>
           </form>
         </div>
