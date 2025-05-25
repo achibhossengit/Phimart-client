@@ -3,33 +3,36 @@ import apiClient from "../services/api-client";
 
 const useAuth = () => {
   const [user, setUser] = useState(null);
-  const [alert, setAlert] = useState({status: 'none', message:""}); 
+  const [alert, setAlert] = useState({ status: "none", message: "" });
 
   const getToken = () => {
     const token = localStorage.getItem("authTokens");
     return token ? JSON.parse(token) : null;
   };
-  
+
   // Login User
   const [authTokens, setAuthTokens] = useState(getToken());
   const loginUser = async (userData) => {
-    setAlert({status: 'none', message:""})
+    setAlert({ status: "none", message: "" });
     try {
       const response = await apiClient.post("auth/jwt/create/", userData);
       setAuthTokens(response.data);
       localStorage.setItem("authTokens", JSON.stringify(response.data));
-      setAlert({status:'logged_success', message: 'You are logged in'})
+      setAlert({ status: "logged_success", message: "You are logged in" });
       return;
     } catch (error) {
-      setAlert({status:'logged_error', message: error.response.data?.detail})
+      setAlert({
+        status: "logged_error",
+        message: error.response.data?.detail,
+      });
     }
   };
 
-  useEffect(()=>{
-    if (authTokens){
+  useEffect(() => {
+    if (authTokens) {
       fetchUserProfile();
     }
-  }, [authTokens])
+  }, [authTokens]);
 
   //   fetch user
   const fetchUserProfile = async () => {
@@ -45,34 +48,65 @@ const useAuth = () => {
 
   // Register user
   const registerUser = async (userData) => {
-    setAlert({status: 'none', message:""})
+    setAlert({ status: "none", message: "" });
     try {
       await apiClient.post("/auth/users/", userData);
-        setAlert({status:'register_success', message:"Your account has been created successfully! Now Check your Email to active it."})
+      setAlert({
+        status: "register_success",
+        message:
+          "Your account has been created successfully! Now Check your Email to active it.",
+      });
     } catch (error) {
-      if(error.response && error.response.data){
+      if (error.response && error.response.data) {
         const errors = Object.values(error.response.data).flat().join("\n");
-        setAlert({status:'register_error', message: errors})
-      }
-      else{
-        setAlert({status:'register_error', message: "Registration failed. Something went wrong!"})
+        setAlert({ status: "register_error", message: errors });
+      } else {
+        setAlert({
+          status: "register_error",
+          message: "Registration failed. Something went wrong!",
+        });
       }
     }
-  }
+  };
 
   // update user
-
-  const updateUserProfile = async(userData) => {
-    setAlert({status: 'none', message:""})
-    try{
-      await apiClient.put("/auth/users/me/", userData, {headers:{
-        Authorization: `JWT ${authTokens?.access}`
-      }})
-    }catch (error){
+  const updateUserProfile = async (userData) => {
+    setAlert({ status: "none", message: "" });
+    try {
+      await apiClient.put("/auth/users/me/", userData, {
+        headers: {
+          Authorization: `JWT ${authTokens?.access}`,
+        },
+      });
+      setAlert({
+        status: "profile_update_success",
+        message: "Profile updated successfully!",
+      });
+    } catch (error) {
       console.log(error);
+      const strError = Object.values(error.response.data).flat().join("\n");
+      setAlert({ status: "profile_update_error", message: strError });
     }
-  }
+  };
 
+  // Change password
+  const changePassword = async (data) => {
+    try {
+      await apiClient.post("/auth/users/set_password/", data, {
+        headers: {
+          Authorization: `JWT ${authTokens?.access}`,
+        },
+      });
+    } catch (error) {
+      const strError = error.response?.data
+        ? Object.values(error.response.data).flat().join("\n")
+        : "An unexpected error occurred!";
+      setAlert({
+        status: "change_password_error",
+        message: strError,
+      });
+    }
+  };
 
   // logout user
   const logoutUser = () => {
@@ -81,7 +115,16 @@ const useAuth = () => {
     localStorage.removeItem("authTokens");
   };
 
-  return { user, authTokens, alert, loginUser, registerUser, logoutUser, updateUserProfile };
+  return {
+    user,
+    authTokens,
+    alert,
+    loginUser,
+    registerUser,
+    logoutUser,
+    updateUserProfile,
+    changePassword,
+  };
 };
 
 export default useAuth;

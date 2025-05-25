@@ -9,6 +9,7 @@ import AlertSuccess from "../components/AlertSuccess";
 
 const ProflePage = () => {
   const [isEdit, setIsEdit] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const handleIsEdit = () => {
     setIsEdit(!isEdit);
   };
@@ -29,7 +30,6 @@ const ProflePage = () => {
   }, [user, setValue]);
 
   const onSubmit = async (data) => {
-    console.log(data);
     const profileData = {
       first_name: data.first_name,
       last_name: data.last_name,
@@ -37,6 +37,7 @@ const ProflePage = () => {
       address: data.address,
       phone_number: data.phone_number,
     };
+    setIsLoading(true);
     try {
       await updateUserProfile(profileData);
       if (data.currentPassword && data.newPassword) {
@@ -47,6 +48,8 @@ const ProflePage = () => {
       }
     } catch (error) {
       console.log(error);
+    } finally{
+      setIsLoading(false);
     }
   };
   return (
@@ -70,7 +73,7 @@ const ProflePage = () => {
         errors={errors}
         watch={watch}
       />
-      <ChangeButton isEdit={isEdit} handleIsEdit={handleIsEdit} />
+      <ChangeButton isLoading={isLoading} isEdit={isEdit} handleIsEdit={handleIsEdit} />
     </form>
   );
 };

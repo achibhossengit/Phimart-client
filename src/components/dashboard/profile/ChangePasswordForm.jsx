@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
-import AlertError from "../../AlertError";
-import AlertSuccess from "../../AlertSuccess";
+import { useState } from "react";
 
 const ChangePasswordForm = ({ register, watch, errors, isEdit }) => {
   const [isChangePassword, setIsChangePassword] = useState(false);
@@ -27,7 +25,7 @@ const ChangePasswordForm = ({ register, watch, errors, isEdit }) => {
               type={isShowPassword ? "text" : "password"}
               placeholder="Current"
               {...register("currentPassword", {
-                required: "Current password is required",
+                required: isChangePassword,
               })}
               className={`w-full border ${
                 errors.currentPassword ? "border-red-500" : "border-gray-300"
@@ -47,7 +45,7 @@ const ChangePasswordForm = ({ register, watch, errors, isEdit }) => {
               type={isShowPassword ? "text" : "password"}
               placeholder="New"
               {...register("newPassword", {
-                required: true,
+                required: isChangePassword,
                 minLength: {
                   value: 8,
                   message: "Password must be at least 8 characters",
@@ -71,9 +69,9 @@ const ChangePasswordForm = ({ register, watch, errors, isEdit }) => {
               type={isShowPassword ? "text" : "password"}
               placeholder="Confirm"
               {...register("confirmPassword", {
-                required: true,
+                required: isChangePassword,
                 validate: (value) =>
-                  value === watch('newPassword') || "Passwords do not match",
+                  value === watch("newPassword") || "Passwords do not match",
               })}
               className={`w-full border ${
                 errors.confirmPassword ? "border-red-500" : "border-gray-300"

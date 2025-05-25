@@ -1,6 +1,6 @@
 import React from "react";
 
-const ChangeButton = ({ isEdit, handleIsEdit }) => {
+const ChangeButton = ({ isEdit, handleIsEdit, isLoading }) => {
   return (
     <div className="flex justify-center mt-5 gap-4">
       {!isEdit ? (
@@ -22,9 +22,10 @@ const ChangeButton = ({ isEdit, handleIsEdit }) => {
           </button>
           <button
             type="submit"
-            className="cursor-pointer px-4 py-2 bg-pink-500 text-white font-semibold rounded-md hover:bg-pink-600 transition duration-200"
+            // disabled={true}
+            className={`btn ${isLoading ? 'btn-disabled': ''} bg-pink-500 text-white font-semibold rounded-md hover:bg-pink-600 transition duration-200`}
           >
-            Save Changes
+            {isLoading ? 'Updating' : 'Save Changes'}
           </button>
         </div>
       )}
