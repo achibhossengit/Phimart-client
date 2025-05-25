@@ -41,10 +41,10 @@ const Navbar = ({ handleSidebar, openSidebar, user, logoutUser }) => {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             <li>
-              <a className="justify-between">
+              <NavLink to={'profile'} className="justify-between">
                 Profile
                 <span className="badge">New</span>
-              </a>
+              </NavLink>
             </li>
             <li>
               <a>Settings</a>

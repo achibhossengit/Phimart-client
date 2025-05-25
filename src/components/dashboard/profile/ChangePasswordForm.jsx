@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import AlertError from "../../AlertError";
+import AlertSuccess from "../../AlertSuccess";
 
 const ChangePasswordForm = ({ register, watch, errors, isEdit }) => {
   const [isChangePassword, setIsChangePassword] = useState(false);
@@ -17,7 +19,7 @@ const ChangePasswordForm = ({ register, watch, errors, isEdit }) => {
         } mt-2 space-y-4 w-full max-w-md mx-auto`}
       >
         {/* password */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-start gap-2">
           {/* Current Password */}
           <div>
             <input
@@ -25,7 +27,7 @@ const ChangePasswordForm = ({ register, watch, errors, isEdit }) => {
               type={isShowPassword ? "text" : "password"}
               placeholder="Current"
               {...register("currentPassword", {
-                // required: "Current password is required",
+                required: "Current password is required",
               })}
               className={`w-full border ${
                 errors.currentPassword ? "border-red-500" : "border-gray-300"
@@ -45,11 +47,11 @@ const ChangePasswordForm = ({ register, watch, errors, isEdit }) => {
               type={isShowPassword ? "text" : "password"}
               placeholder="New"
               {...register("newPassword", {
-                // required: "New password is required",
-                // minLength: {
-                //   value: 8,
-                //   message: "Password must be at least 8 characters",
-                // },
+                required: true,
+                minLength: {
+                  value: 8,
+                  message: "Password must be at least 8 characters",
+                },
               })}
               className={`w-full border ${
                 errors.newPassword ? "border-red-500" : "border-gray-300"
@@ -69,9 +71,9 @@ const ChangePasswordForm = ({ register, watch, errors, isEdit }) => {
               type={isShowPassword ? "text" : "password"}
               placeholder="Confirm"
               {...register("confirmPassword", {
-                // required: "Please confirm your new password",
-                // validate: (value) =>
-                  // value === password || "Passwords do not match",
+                required: true,
+                validate: (value) =>
+                  value === watch('newPassword') || "Passwords do not match",
               })}
               className={`w-full border ${
                 errors.confirmPassword ? "border-red-500" : "border-gray-300"

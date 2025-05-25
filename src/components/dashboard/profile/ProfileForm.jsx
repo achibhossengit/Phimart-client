@@ -1,12 +1,10 @@
-
 const ProfileForm = ({ isEdit, register, errors}) => {
   return (
-    <div
-      className="space-y-4"
-    >
+    <div className="space-y-4">
       <h1 className="text-2xl font-bold text-center text-gray-800">
         Profile Information
       </h1>
+      <hr className="border-dashed border-gray-500 my-5" />
 
       {/* First Name */}
       <div>
@@ -46,17 +44,13 @@ const ProfileForm = ({ isEdit, register, errors}) => {
           } rounded-md px-4 py-2 focus:outline-none focus:border-pink-500`}
         />
         {errors.lastName && (
-          <p className="text-red-500 text-sm mt-1">
-            {errors.lastName.message}
-          </p>
+          <p className="text-red-500 text-sm mt-1">{errors.lastName.message}</p>
         )}
       </div>
 
       {/* Email */}
       <div>
-        <label className="block text-gray-600 font-semibold mb-1">
-          Email
-        </label>
+        <label className="block text-gray-600 font-semibold mb-1">Email</label>
         <input
           disabled={true}
           type="email"
@@ -78,9 +72,7 @@ const ProfileForm = ({ isEdit, register, errors}) => {
 
       {/* Phone */}
       <div>
-        <label className="block text-gray-600 font-semibold mb-1">
-          Phone
-        </label>
+        <label className="block text-gray-600 font-semibold mb-1">Phone</label>
         <input
           disabled={!isEdit}
           type="tel"
