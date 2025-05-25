@@ -28,6 +28,13 @@ const useAuth = () => {
     }
   };
 
+  // logout user
+  const logoutUser = () => {
+    setAuthTokens(null);
+    setUser(null);
+    localStorage.removeItem("authTokens");
+  };
+
   useEffect(() => {
     if (authTokens) {
       fetchUserProfile();
@@ -108,12 +115,27 @@ const useAuth = () => {
     }
   };
 
-  // logout user
-  const logoutUser = () => {
-    setAuthTokens(null);
-    setUser(null);
-    localStorage.removeItem("authTokens");
-  };
+  // Reset password
+  const resetPassword = async(data)=>{
+    try{
+      await apiClient.post('/auth/users/reset_password/', data)
+      setAlert({status: 'forgot_success', message: "Please check your email to set new password"});
+    } catch(error){
+      console.log(error);
+      setAlert({status: 'forgot_error', message: 'Something went wrong!'})
+    }
+  }
+
+  // Confirm reset password
+  const confirmResetPassword = async(data) => {
+    try{
+      await apiClient.post('/auth/users/reset_password_confirm/', data)
+      setAlert({status: 'confirm_success', message: 'Your password reset successfully. Now redirecting login page....'})
+    }catch(error){
+      console.log(error);
+      setAlert({status: 'confirm_error', message: 'Something went wrong'})
+    }
+  }
 
   return {
     user,
@@ -124,6 +146,8 @@ const useAuth = () => {
     logoutUser,
     updateUserProfile,
     changePassword,
+    resetPassword,
+    confirmResetPassword
   };
 };
 

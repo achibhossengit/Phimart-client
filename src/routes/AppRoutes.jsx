@@ -11,6 +11,8 @@ import Resgister from "../components/register/Resgister";
 import RegisterBlank from "../components/register/RegisterBlank";
 import DashboardLayout from "../pages/layouts/DashboardLayout";
 import ProflePage from "../pages/ProflePage";
+import ResetConfirmPage from "../pages/ResetConfirmPage";
+import ResetPasswordPage from "../pages/ResetPasswordPage";
 
 const AppRoutes = () => {
   return (
@@ -24,8 +26,9 @@ const AppRoutes = () => {
           <Route path="registration" element={<Registration />} />
           <Route path="registrationSuccess" element={<RegisterBlank />} />
           <Route path="activate/:uid/:token" element={<Resgister />} />
+          <Route path="password/reset" element={<ResetPasswordPage />} />
+          <Route path="password/reset/confirm/:uid/:token" element={<ResetConfirmPage />} />
         </Route>
-
         <Route
           path="dashboard"
           element={

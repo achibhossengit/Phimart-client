@@ -37,20 +37,20 @@ const Login = () => {
           {/* alert component */}
           {alert.status === "logged_error" && <AlertError message={alert.message} />}
           <h1 className="text-2xl font-bold text-gray-800 text-center mb-2">
-            Sign In
+            Log In
           </h1>
           <p className="text-sm text-gray-500 text-center mb-6">
             Access your account by entering your email and password.
           </p>
 
           {/* input form */}
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
             <fieldset className="fieldset">
               <legend className="fieldset-legend text-gray-600 text-sm">
                 Email
               </legend>
               <input
-                value={"admin@admin.com"}
+                // value={"admin@admin.com"}
                 {...register("email", { required: "Provide your email first" })}
                 type="email"
                 className="input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-pink-500 focus:border-pink-500"
@@ -72,6 +72,9 @@ const Login = () => {
                 placeholder="Enter your password"
               />
             </fieldset>
+            <div className="text-end">
+              <Link to={'/password/reset'} className="text-pink-500 underline">Forgot Password?</Link>
+            </div>
             <button
               disabled={loading}
               className="btn btn-primary bg-pink-500 border-none text-white w-full py-2 rounded-lg text-lg font-semibold hover:bg-pink-600 transition-colors"
