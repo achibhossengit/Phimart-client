@@ -13,6 +13,7 @@ import DashboardLayout from "../pages/layouts/DashboardLayout";
 import ProflePage from "../pages/ProflePage";
 import ResetConfirmPage from "../pages/ResetConfirmPage";
 import ResetPasswordPage from "../pages/ResetPasswordPage";
+import ProductDetails from "../pages/ProductDetails";
 
 const AppRoutes = () => {
   return (
@@ -22,6 +23,7 @@ const AppRoutes = () => {
           <Route path="/" element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="shop" element={<Shop />} />
+          <Route path="shop/:id" element={<ProductDetails />} />
           <Route path="login" element={<Login />} />
           <Route path="registration" element={<Registration />} />
           <Route path="registrationSuccess/:email" element={<RegisterBlank />} />
