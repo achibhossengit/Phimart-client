@@ -15,13 +15,13 @@ import { useState } from "react";
 
 const Products = () => {
   const categories = useFetchCategories();
-  const [priceRange2, setPriceRange2] = useState([0,1000]);
+  const [priceRange2, setPriceRange2] = useState([0, 1000]);
   const { products, isLoading, error, totalPages } = useFetchProducts(
-  undefined,
-  priceRange2, // to fix looping issues
-  undefined,
-  undefined,
-  undefined
+    undefined,
+    priceRange2, // to fix looping issues
+    undefined,
+    undefined,
+    undefined
   );
   return (
     <section className="my-10 bg-gray-100 rounded-lg shadow-lg p-5">

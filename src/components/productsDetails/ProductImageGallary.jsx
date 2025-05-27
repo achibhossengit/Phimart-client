@@ -7,13 +7,12 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { Navigation, Pagination, Thumbs } from "swiper/modules";
 import { useState } from "react";
-import defaultImage from "../../assets/images/default_product.jpg"
+import defaultImage from "../../assets/images/default_product.jpg";
 
 const ProductImageGallary = ({ images }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  const displayImages = images?.length > 0 ? images : [{image: defaultImage}]
+  const displayImages = images?.length > 0 ? images : [{ image: defaultImage }];
 
-  console.log(images);
   return (
     <div className="overflow-hidden">
       <Swiper

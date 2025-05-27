@@ -41,7 +41,7 @@ const ProductDetails = () => {
           {/* Category and Title */}
           <div>
             <span className="text-sm font-medium text-indigo-600">
-              {product.category}
+              Category: {product.category}
             </span>
             <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
               {product.name}
@@ -98,7 +98,7 @@ const ProductDetails = () => {
 
           {/* Add to Cart */}
           <div className="border-t border-gray-200 pt-6">
-            <AddToCartButton />
+            <AddToCartButton product={product}/>
           </div>
         </div>
       </div>

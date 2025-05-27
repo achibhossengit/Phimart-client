@@ -3,11 +3,16 @@ import product_img from "../../assets/images/default_product.jpg";
 
 const ProductItems = ({ product, categories }) => {
   const getCategoryName = (product, categories) => {
-    const category = categories.find(category => category.id == product.category)
+    const category = categories.find(
+      (category) => category.id == product.category
+    );
     return category.name;
   };
   return (
-    <Link to={`/shop/${product.id}`} className="card bg-base-100 w-96 shadow-sm transform hover:scale-105 cursor-pointer">
+    <Link
+      to={`/shop/${product.id}`}
+      className="card bg-base-100 w-96 shadow-sm transform hover:scale-105 cursor-pointer"
+    >
       <figure className="px-10 pt-10">
         <img
           src={

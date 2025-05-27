@@ -1,40 +1,50 @@
 import React, { useState } from "react";
 import { FaCheck, FaShoppingCart, FaSpinner } from "react-icons/fa";
+import useCart from "../../hooks/useCart";
 
-const AddToCartButton = ({ product = { stock: 7 } }) => {
+const AddToCartButton = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
   const [isAdding, setIsAdding] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
   const [shake, setShake] = useState(false);
+  const {addCartItem} = useCart()
 
-    const handleIncrease = ()=>{
-        if (quantity < product.stock){
-            setQuantity(quantity+1)
-        }
-    };
-    const handleDecrease = ()=>{
-        if (quantity > 1){
-            setQuantity(quantity-1)
-        }
-    };
-
-  const handleButtonClick = () => {
-    if (isAdded) return;
-    
-    setIsAdding(true);
-    setTimeout(() => {
-      setIsAdded(true);
-      setIsAdding(false);
-      setTimeout(() => setIsAdded(false), 3000);
-    }, 1500);
+  const handleIncrease = () => {
+    if (quantity < product.stock) {
+      setQuantity(quantity + 1);
+    }
   };
+  const handleDecrease = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
+
+  const handleButtonClick = async() => {
+    const quantity = document.getElementById('quantity').value;
+    setIsAdding(true);
+
+    try{
+      const response = await addCartItem({product_id: product.id, quantity: parseInt(quantity)})
+      setIsAdded(true)
+    }catch(error){
+      console.log(error);
+
+    }finally{
+      setIsAdding(false)
+    }
+    
+  };
+
 
   return (
     <div className="flex flex-col gap-4 w-full">
       {/* Quantity Selector */}
       <div className="flex items-center justify-between">
         <span className="text-sm font-medium text-gray-700">Quantity</span>
-        <div className={`flex border rounded-md ${shake ? 'animate-shake' : ''}`}>
+        <div
+          className={`flex border rounded-md ${shake ? "animate-shake" : ""}`}
+        >
           <button
             onClick={handleDecrease}
             disabled={quantity <= 1}
@@ -44,6 +54,7 @@ const AddToCartButton = ({ product = { stock: 7 } }) => {
             −
           </button>
           <input
+          id="quantity"
             type="text"
             min="1"
             max={product.stock}
@@ -65,16 +76,18 @@ const AddToCartButton = ({ product = { stock: 7 } }) => {
       {/* Add to Cart Button */}
       <button
         onClick={handleButtonClick}
-        disabled={isAdding || !product.stock}
+        disabled={isAdding || !product.stock || isAdded}
         className={`w-full py-3 px-4 rounded-md font-medium transition-all duration-300 flex items-center justify-center gap-2
           ${
             isAdded
-              ? 'bg-green-100 text-green-800'
+              ? "bg-green-100 text-green-800"
               : isAdding
-              ? 'bg-pink-400 text-white cursor-wait'
-              : 'bg-pink-600 hover:bg-pink-700 text-white cursor-pointer'
+              ? "bg-pink-400 text-white cursor-wait"
+              : "bg-pink-600 hover:bg-pink-700 text-white cursor-pointer"
           }
-          ${!product.stock ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : ''}
+          ${
+            !product.stock ? "bg-gray-300 text-gray-500 cursor-not-allowed" : ""
+          }
         `}
         aria-live="polite"
       >
@@ -91,7 +104,7 @@ const AddToCartButton = ({ product = { stock: 7 } }) => {
         ) : (
           <>
             <FaShoppingCart />
-            {product.stock > 0 ? 'Add to Cart' : 'Out of Stock'}
+            {product.stock > 0 ? "Add to Cart" : "Out of Stock"}
           </>
         )}
       </button>
