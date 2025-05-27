@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import product_img from "../../assets/images/default_product.jpg";
 
 const ProductItems = ({ product, categories }) => {
@@ -6,7 +7,7 @@ const ProductItems = ({ product, categories }) => {
     return category.name;
   };
   return (
-    <div className="card bg-base-100 w-96 shadow-sm transform hover:scale-105 cursor-pointer">
+    <Link to={`/shop/${product.id}`} className="card bg-base-100 w-96 shadow-sm transform hover:scale-105 cursor-pointer">
       <figure className="px-10 pt-10">
         <img
           src={
@@ -27,7 +28,7 @@ const ProductItems = ({ product, categories }) => {
           <button className="btn btn-secondary">Buy Now</button>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

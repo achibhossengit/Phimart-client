@@ -11,7 +11,7 @@ import defaultImage from "../../assets/images/default_product.jpg"
 
 const ProductImageGallary = ({ images }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  const displayImages = images.length > 0 ? images : [{image: defaultImage}]
+  const displayImages = images?.length > 0 ? images : [{image: defaultImage}]
 
   console.log(images);
   return (
