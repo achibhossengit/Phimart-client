@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import authApiClient from "../services/auth-api-client";
 
 const useCart = () => {
@@ -6,7 +6,7 @@ const useCart = () => {
   const [cartId, setCartId] = useState(() => localStorage.getItem("cartId"));
 
   // create cart
-  const createOrGetCart = async () => {
+  const createOrGetCart = useCallback(async () => {
     try {
       const response = await authApiClient.post("/carts/");
       setCart(response.data);
@@ -15,10 +15,10 @@ const useCart = () => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [cartId])
 
   // add cart item
-  const addCartItem = async (product_data) => {
+  const addCartItem = useCallback(async (product_data) => {
     if (!cartId) await createOrGetCart();
     try {
       const response = await authApiClient.post(
@@ -29,7 +29,7 @@ const useCart = () => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [cartId, createOrGetCart])
 
   return { cart, createOrGetCart, addCartItem };
 };
