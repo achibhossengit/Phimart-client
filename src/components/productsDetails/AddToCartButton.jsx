@@ -7,7 +7,7 @@ const AddToCartButton = ({ product }) => {
   const [isAdding, setIsAdding] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
   const [shake, setShake] = useState(false);
-  const {addCartItem} = useCart()
+  const { addCartItem } = useCart();
 
   const handleIncrease = () => {
     if (quantity < product.stock) {
@@ -20,22 +20,22 @@ const AddToCartButton = ({ product }) => {
     }
   };
 
-  const handleButtonClick = async() => {
-    const quantity = document.getElementById('quantity').value;
+  const handleButtonClick = async () => {
+    const quantity = document.getElementById("quantity").value;
     setIsAdding(true);
 
-    try{
-      const response = await addCartItem({product_id: product.id, quantity: parseInt(quantity)})
-      setIsAdded(true)
-    }catch(error){
+    try {
+      const response = await addCartItem({
+        product_id: product.id,
+        quantity: parseInt(quantity),
+      });
+      setIsAdded(true);
+    } catch (error) {
       console.log(error);
-
-    }finally{
-      setIsAdding(false)
+    } finally {
+      setIsAdding(false);
     }
-    
   };
-
 
   return (
     <div className="flex flex-col gap-4 w-full">
@@ -54,7 +54,7 @@ const AddToCartButton = ({ product }) => {
             −
           </button>
           <input
-          id="quantity"
+            id="quantity"
             type="text"
             min="1"
             max={product.stock}

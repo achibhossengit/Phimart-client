@@ -1,8 +1,17 @@
 import { Link, NavLink } from "react-router";
 import useAuthContext from "../../hooks/useAuthContext";
+import useCart from "../../hooks/useCart";
+import { useEffect } from "react";
 
 const Navbar = () => {
   const { user, logoutUser } = useAuthContext();
+  const { cart, createOrGetCart } = useCart();
+  useEffect(() => {
+    const fetchCart = async () => {
+      await createOrGetCart();
+    };
+    fetchCart()
+  }, []);
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
@@ -99,7 +108,9 @@ const Navbar = () => {
                       d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                     />{" "}
                   </svg>
-                  <span className="badge badge-sm indicator-item">8</span>
+                  <span className="badge badge-sm indicator-item">
+                    {cart?.items.length || 0}
+                  </span>
                 </div>
               </div>
               <div
@@ -107,12 +118,16 @@ const Navbar = () => {
                 className="card card-compact dropdown-content bg-base-100 z-1 mt-3 w-52 shadow"
               >
                 <div className="card-body">
-                  <span className="text-lg font-bold">8 Items</span>
-                  <span className="text-info">Subtotal: $999</span>
+                  <span className="text-lg font-bold">
+                    {cart?.items?.length || 0} Items
+                  </span>
+                  <span className="text-info">
+                    Subtotal: ${cart?.total_price || 0}
+                  </span>
                   <div className="card-actions">
-                    <button className="btn btn-primary btn-block">
+                    <Link to={'dashboard/cart'} className="btn btn-primary btn-block">
                       View cart
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -135,28 +150,36 @@ const Navbar = () => {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
               >
                 <li>
-                  <NavLink to={'dashboard/profile'} >
-                    Profile
-                  </NavLink>
+                  <NavLink to={"dashboard/profile"}>Profile</NavLink>
                 </li>
                 <li>
-                  <NavLink to={'/dashboard'} className="justify-between">
+                  <NavLink to={"/dashboard"} className="justify-between">
                     Dashboard
                     <span className="badge">New</span>
                   </NavLink>
                 </li>
                 <li>
-                  <a onClick={()=>logoutUser()}>Logout</a>
+                  <a onClick={() => logoutUser()}>Logout</a>
                 </li>
               </ul>
             </div>
           </div>
         ) : (
           <div className="flex gap-2">
-            <Link to='/login' className="btn btn-primary bg-pink-500 border-pink-500 shadow-none text-white">Login</Link>
-            <Link to='/registration' className="btn btn-primary bg-pink-500 border-pink-500 shadow-none text-white">Register</Link>
+            <Link
+              to="/login"
+              className="btn btn-primary bg-pink-500 border-pink-500 shadow-none text-white"
+            >
+              Login
+            </Link>
+            <Link
+              to="/registration"
+              className="btn btn-primary bg-pink-500 border-pink-500 shadow-none text-white"
+            >
+              Register
+            </Link>
           </div>
-        )}        
+        )}
       </div>
     </div>
   );

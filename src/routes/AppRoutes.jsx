@@ -42,7 +42,7 @@ const AppRoutes = () => {
         >
           <Route index element={<Dashboard />} />
           <Route path="profile" element={<ProflePage />} />
-          <Route path="profile/cart" element={<Cart />} />
+          <Route path="cart" element={<Cart />} />
         </Route>
       </Routes>
     </>
