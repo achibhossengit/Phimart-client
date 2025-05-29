@@ -2,8 +2,10 @@ import React from "react";
 import OrderTable from "./OrderTable";
 import useAuthContext from "../../hooks/useAuthContext";
 
-const OrderCart = ({ order }) => {
-  const {user} = useAuthContext()
+const OrderCart = ({ order, handleCancelOrder }) => {
+  const { user } = useAuthContext();
+  let buttonText = 'Not Paid';
+  let buttonColor = 'bg-yellow-500'
   const subtotal = order.items.reduce((sum, item) => sum + item.total_price, 0);
   const shipping = 50;
   const total = subtotal + shipping;
@@ -11,6 +13,24 @@ const OrderCart = ({ order }) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
+
+  if(order.status == 'N'){
+    buttonColor = 'bg-yellow-500';
+    buttonText = 'Not Paid';
+  }else if(order.status == 'R'){
+    buttonColor = 'bg-green-500'
+    buttonText = 'Ready to Ship'
+  }else if(order.status == 'S'){
+    buttonColor = 'bg-purple-500'
+    buttonText = 'Shipped'
+  }else if(order.status == 'D'){
+    buttonColor = 'bg-blue-500'
+    buttonText = 'Delevered'
+  }else if(order.status == 'C'){
+    buttonColor = 'bg-gray-200'
+    buttonText = 'Canceled'
+  }
+
   return (
     <div
       key={order.id}
@@ -26,16 +46,15 @@ const OrderCart = ({ order }) => {
         </div>
         <div className="flex gap-2">
           <button
-            className={`px-4 py-2 rounded-md font-medium ${
-              order.status === "N"
-                ? "bg-yellow-500 text-white hover:bg-yellow-600"
-                : "bg-green-500 text-white hover:bg-green-600"
-            }`}
+            className={`px-4 py-2 rounded-md font-medium ${buttonColor}`}
           >
-            {order.status === "N" ? "Not Paid" : "Paid"}
+            {buttonText}
           </button>
-          <button className="px-4 py-2 border border-gray-300 rounded-md font-medium hover:bg-gray-100">
-            {order.status === "N" ? "Cancel" : "Request Return"}
+          <button
+            onClick={() => handleCancelOrder(order.id)}
+            className={`${order.status == 'C' && 'hidden' } px-4 py-2 border hover:cursor-pointer border-gray-300 rounded-md font-medium hover:bg-gray-100`}
+          >
+            Cancel
           </button>
         </div>
       </div>
@@ -61,7 +80,7 @@ const OrderCart = ({ order }) => {
             <span className="font-semibold text-lg">${total.toFixed(2)}</span>
           </div>
         </div>
-        {(!user.is_staff && order.status === "N") && (
+        {!user.is_staff && order.status === "N" && (
           <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md font-medium transition duration-200">
             Pay Now
           </button>

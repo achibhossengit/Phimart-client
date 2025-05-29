@@ -20,6 +20,21 @@ const Orders = () => {
     fetchOrders();
   }, []);
 
+  const handleCancelOrder = async (orderId) => {
+    try {
+      const response = await authApiClient.post(`/orders/${orderId}/cancel/`);
+      if (response.status === 200) {
+        setOrders((prevOrders) =>
+          prevOrders.map((order) =>
+            order.id == orderId ? { ...order, status: "C" } : order
+          )
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="max-w-4xl mx-auto p-4">
       <h1 className="text-2xl font-bold mb-6">Your Orders</h1>
@@ -31,7 +46,11 @@ const Orders = () => {
       ) : (
         <div>
           {orders.map((order) => (
-            <OrderCart key={order.id} order={order} />
+            <OrderCart
+              key={order.id}
+              order={order}
+              handleCancelOrder={handleCancelOrder}
+            />
           ))}
         </div>
       )}
