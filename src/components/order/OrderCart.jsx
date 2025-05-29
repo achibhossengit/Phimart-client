@@ -2,12 +2,13 @@ import React from "react";
 import OrderTable from "./OrderTable";
 
 const OrderCart = ({ order }) => {
+  const subtotal = order.items.reduce((sum, item) => sum + item.total_price, 0);
+  const shipping = 50;
+  const total = subtotal + shipping;
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
-  const subtotal = order.items.reduce((sum, item) => sum + item.total_price, 0);
-  const total = subtotal + order.shipping;
   return (
     <div
       key={order.id}
@@ -50,7 +51,7 @@ const OrderCart = ({ order }) => {
           <div className="flex justify-between">
             <span className="text-gray-600">Shipping:</span>
             <span className="font-medium">
-              {order.shipping > 0 ? `$${order.shipping.toFixed(2)}` : "Free"}
+              {shipping > 0 ? `${shipping.toFixed(2)}` : "Free"}
             </span>
           </div>
           <div className="flex justify-between border-t border-gray-200 pt-3">

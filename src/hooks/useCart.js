@@ -61,7 +61,7 @@ const useCart = () => {
     }
   }, [])
 
-  return { cart, loading, createOrGetCart, addCartItem, updateQuantity, deleteCartItem};
+  return { cart, cartId, loading, createOrGetCart, addCartItem, updateQuantity, deleteCartItem};
 };
 
 export default useCart;

@@ -16,6 +16,7 @@ const Sidebar = ({ openSidebar }) => {
     },
     { to: "categories", icon: FaTag, label: "Categories" },
     { to: "orders", icon: CiShoppingCart, label: "Orders" },
+    { to: "cart", icon: CiShoppingCart, label: "Your Cart" },
     { to: "reviews", icon: IoMdStarOutline, label: "Reviews" },
     { to: "users", icon: FaUsers, label: "Users" },
   ];

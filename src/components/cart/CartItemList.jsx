@@ -1,5 +1,6 @@
 import { FiShoppingCart, FiTrash2 } from "react-icons/fi";
 import { FiMinus, FiPlus } from "react-icons/fi";
+import { Link } from "react-router";
 
 const CartItemList = ({ handleQuantity, items, handleDeleteItem }) => {
   if (items.length < 1) {
@@ -7,7 +8,7 @@ const CartItemList = ({ handleQuantity, items, handleDeleteItem }) => {
       <div className="text-center py-10">
         <FiShoppingCart className="mx-auto text-4xl text-gray-400 mb-4" />
         <p className="text-lg mb-4">আপনার কার্টে কোনো আইটেম নেই!</p>
-        <button className="btn btn-primary">শপিং করুন</button>
+        <Link to={'/shop'} className="btn btn-primary">শপিং করুন</Link>
       </div>
     );
   }
