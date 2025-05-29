@@ -15,6 +15,7 @@ import ResetConfirmPage from "../pages/ResetConfirmPage";
 import ResetPasswordPage from "../pages/ResetPasswordPage";
 import ProductDetails from "../pages/ProductDetails";
 import Cart from "../pages/Cart";
+import Orders from "../pages/Orders";
 
 const AppRoutes = () => {
   return (
@@ -43,6 +44,7 @@ const AppRoutes = () => {
           <Route index element={<Dashboard />} />
           <Route path="profile" element={<ProflePage />} />
           <Route path="cart" element={<Cart />} />
+          <Route path="orders" element={<Orders />} />
         </Route>
       </Routes>
     </>

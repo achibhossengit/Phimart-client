@@ -8,16 +8,16 @@ import { Link } from "react-router";
 const Sidebar = ({ openSidebar }) => {
   const menuItems = [
     { to: "/dashboard", icon: VscGraph, label: "Dashboard" },
-    { to: "/products", icon: BsBoxSeamFill, label: "Products" },
+    { to: "products", icon: BsBoxSeamFill, label: "Products" },
     {
       to: "/products/addproducts",
       icon: IoIosAddCircleOutline,
       label: "Add Products",
     },
-    { to: "/categories", icon: FaTag, label: "Categories" },
-    { to: "/orders", icon: CiShoppingCart, label: "Orders" },
-    { to: "/reviews", icon: IoMdStarOutline, label: "Reviews" },
-    { to: "/users", icon: FaUsers, label: "Users" },
+    { to: "categories", icon: FaTag, label: "Categories" },
+    { to: "orders", icon: CiShoppingCart, label: "Orders" },
+    { to: "reviews", icon: IoMdStarOutline, label: "Reviews" },
+    { to: "users", icon: FaUsers, label: "Users" },
   ];
   return (
     <div
