@@ -1,7 +1,9 @@
 import React from "react";
 import OrderTable from "./OrderTable";
+import useAuthContext from "../../hooks/useAuthContext";
 
 const OrderCart = ({ order }) => {
+  const {user} = useAuthContext()
   const subtotal = order.items.reduce((sum, item) => sum + item.total_price, 0);
   const shipping = 50;
   const total = subtotal + shipping;
@@ -59,7 +61,7 @@ const OrderCart = ({ order }) => {
             <span className="font-semibold text-lg">${total.toFixed(2)}</span>
           </div>
         </div>
-        {order.status === "N" && (
+        {(!user.is_staff && order.status === "N") && (
           <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md font-medium transition duration-200">
             Pay Now
           </button>

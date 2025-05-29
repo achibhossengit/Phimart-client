@@ -8,7 +8,7 @@ const Navbar = () => {
   const { cart, createOrGetCart } = useCart();
   useEffect(() => {
     const fetchCart = async () => {
-      await createOrGetCart();
+      if(user) await createOrGetCart();
     };
     fetchCart()
   }, []);

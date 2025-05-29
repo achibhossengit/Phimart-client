@@ -4,9 +4,19 @@ import { FaTag, FaUsers } from "react-icons/fa";
 import { IoIosAddCircleOutline, IoMdStarOutline } from "react-icons/io";
 import { VscGraph } from "react-icons/vsc";
 import { Link } from "react-router";
+import useAuthContext from "../../hooks/useAuthContext";
 
 const Sidebar = ({ openSidebar }) => {
-  const menuItems = [
+  const {user} = useAuthContext()
+
+  
+  const CustomerMenuItems = [
+    { to: "orders", icon: CiShoppingCart, label: "Orders" },
+    { to: "cart", icon: CiShoppingCart, label: "Your Cart" },
+    { to: "reviews", icon: IoMdStarOutline, label: "Reviews" },
+  ];
+  
+  const StaffMenuItems = [
     { to: "/dashboard", icon: VscGraph, label: "Dashboard" },
     { to: "products", icon: BsBoxSeamFill, label: "Products" },
     {
@@ -20,6 +30,8 @@ const Sidebar = ({ openSidebar }) => {
     { to: "reviews", icon: IoMdStarOutline, label: "Reviews" },
     { to: "users", icon: FaUsers, label: "Users" },
   ];
+
+  const menuItems = user.is_staff ? StaffMenuItems : CustomerMenuItems
   return (
     <div
       className={`absolute z-10 h-full w-64 pt-5 bg-pink-50 transition-transform duration-300 pl-5 ${
