@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import OrderTable from "./OrderTable";
 import useAuthContext from "../../hooks/useAuthContext";
+import authApiClient from "../../services/auth-api-client";
 
 const OrderCart = ({ order, handleCancelOrder }) => {
   const { user } = useAuthContext();
-  let buttonText = 'Not Paid';
-  let buttonColor = 'bg-yellow-500'
+  const [status, setStatus] = useState(order.status);
+  let buttonText = "Not Paid";
+  let buttonColor = "bg-yellow-500";
   const subtotal = order.items.reduce((sum, item) => sum + item.total_price, 0);
   const shipping = 50;
   const total = subtotal + shipping;
@@ -14,22 +16,35 @@ const OrderCart = ({ order, handleCancelOrder }) => {
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
-  if(order.status == 'N'){
-    buttonColor = 'bg-yellow-500';
-    buttonText = 'Not Paid';
-  }else if(order.status == 'R'){
-    buttonColor = 'bg-green-500'
-    buttonText = 'Ready to Ship'
-  }else if(order.status == 'S'){
-    buttonColor = 'bg-purple-500'
-    buttonText = 'Shipped'
-  }else if(order.status == 'D'){
-    buttonColor = 'bg-blue-500'
-    buttonText = 'Delevered'
-  }else if(order.status == 'C'){
-    buttonColor = 'bg-gray-200'
-    buttonText = 'Canceled'
+  if (order.status == "N") {
+    buttonColor = "bg-yellow-500";
+    buttonText = "Not Paid";
+  } else if (order.status == "R") {
+    buttonColor = "bg-green-500";
+    buttonText = "Ready to Ship";
+  } else if (order.status == "S") {
+    buttonColor = "bg-purple-500";
+    buttonText = "Shipped";
+  } else if (order.status == "D") {
+    buttonColor = "bg-blue-500";
+    buttonText = "Delevered";
+  } else if (order.status == "C") {
+    buttonColor = "bg-gray-200";
+    buttonText = "Canceled";
   }
+
+  const handleChangeStatus = async (value) => {
+    try {
+      const response = await authApiClient.patch(`/orders/${order.id}/`, {
+        status: value,
+      });
+      if (response.status == 200) {
+        setStatus(value);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div
@@ -44,19 +59,45 @@ const OrderCart = ({ order, handleCancelOrder }) => {
             Placed on {formatDate(order.created_at)}
           </p>
         </div>
-        <div className="flex gap-2">
-          <button
-            className={`px-4 py-2 rounded-md font-medium ${buttonColor}`}
+        {user.is_staff ? (
+          <select
+            value={status}
+            onChange={(e) => handleChangeStatus(e.target.value)}
+            className="border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-gray-700 py-2 px-3 rounded-md shadow-sm transition-all duration-150 outline-none w-full max-w-xs bg-white hover:bg-gray-50 cursor-pointer"
           >
-            {buttonText}
-          </button>
-          <button
-            onClick={() => handleCancelOrder(order.id)}
-            className={`${order.status == 'C' && 'hidden' } px-4 py-2 border hover:cursor-pointer border-gray-300 rounded-md font-medium hover:bg-gray-100`}
-          >
-            Cancel
-          </button>
-        </div>
+            <option value="N" className="text-gray-700">
+              Not Paid
+            </option>
+            <option value="R" className="text-gray-700">
+              Ready To Ship
+            </option>
+            <option value="S" className="text-gray-700">
+              Shipped
+            </option>
+            <option value="D" className="text-gray-700">
+              Delivered
+            </option>
+            <option value="C" className="text-red-600">
+              Cancel
+            </option>
+          </select>
+        ) : (
+          <div className="flex gap-2">
+            <button
+              className={`px-4 py-2 rounded-md font-medium ${buttonColor}`}
+            >
+              {buttonText}
+            </button>
+            <button
+              onClick={() => handleCancelOrder(order.id)}
+              className={`${
+                order.status == "C" && "hidden"
+              } px-4 py-2 border hover:cursor-pointer border-gray-300 rounded-md font-medium hover:bg-gray-100`}
+            >
+              Cancel
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Items table */}
