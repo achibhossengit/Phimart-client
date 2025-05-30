@@ -6,6 +6,7 @@ import authApiClient from "../../services/auth-api-client";
 const OrderCart = ({ order, handleCancelOrder }) => {
   const { user } = useAuthContext();
   const [status, setStatus] = useState(order.status);
+  const [loading, setLoading] = useState(false)
   let buttonText = "Not Paid";
   let buttonColor = "bg-yellow-500";
   const subtotal = order.items.reduce((sum, item) => sum + item.total_price, 0);
@@ -43,6 +44,25 @@ const OrderCart = ({ order, handleCancelOrder }) => {
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const handlePayment = async () => {
+    setLoading(true)
+    try {
+      const response = await authApiClient.post("payment/initiate/", {
+        amount: subtotal+shipping,
+        order_id: order.id,
+        num_items: order.items.length,
+      });
+      if (response.status == 200){
+        setLoading(false)
+        window.location.href = response.data.payment_url;
+      }
+    } catch (error) {
+      console.log(error);
+    }finally{
+      setLoading(false)
     }
   };
 
@@ -122,8 +142,11 @@ const OrderCart = ({ order, handleCancelOrder }) => {
           </div>
         </div>
         {!user.is_staff && order.status === "N" && (
-          <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md font-medium transition duration-200">
-            Pay Now
+          <button
+            onClick={() => handlePayment()}
+            className={`w-full bg-blue-600 hover:bg-blue-700 hover:cursor-pointer text-white py-2 px-4 rounded-md font-medium transition duration-200`}
+          >
+            {loading ? "Processing...." : "Pay Now"}
           </button>
         )}
       </div>
