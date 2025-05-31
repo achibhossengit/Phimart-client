@@ -16,6 +16,7 @@ import ResetPasswordPage from "../pages/ResetPasswordPage";
 import ProductDetails from "../pages/ProductDetails";
 import Cart from "../pages/Cart";
 import Orders from "../pages/Orders";
+import AddProduct from "../pages/AddProduct";
 
 const AppRoutes = () => {
   return (
@@ -45,6 +46,7 @@ const AppRoutes = () => {
           <Route path="profile" element={<ProflePage />} />
           <Route path="cart" element={<Cart />} />
           <Route path="orders" element={<Orders />} />
+          <Route path="addproduct" element={<AddProduct />} />
         </Route>
       </Routes>
     </>

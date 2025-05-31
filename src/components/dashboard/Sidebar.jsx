@@ -20,7 +20,7 @@ const Sidebar = ({ openSidebar }) => {
     { to: "/dashboard", icon: VscGraph, label: "Dashboard" },
     { to: "products", icon: BsBoxSeamFill, label: "Products" },
     {
-      to: "/products/addproducts",
+      to: "addproduct",
       icon: IoIosAddCircleOutline,
       label: "Add Products",
     },
