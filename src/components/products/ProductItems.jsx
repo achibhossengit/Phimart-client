@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import product_img from "../../assets/images/default_product.jpg";
 
 const ProductItems = ({ product, categories }) => {
-  const getCategoryName = (product, categories) => {
+  const getCategoryName = (product) => {
     const category = categories.find(
       (category) => category.id == product.category
     );
@@ -26,7 +26,7 @@ const ProductItems = ({ product, categories }) => {
         <h2 className="card-title">{product.name}</h2>
         <p className="font-semibold">$ {product.price}</p>
         <p className="font-semibold">
-          Category: {getCategoryName(product, categories)}
+          Category: {getCategoryName(product)}
         </p>
         <p>{product.description}</p>
         <div className="card-actions">

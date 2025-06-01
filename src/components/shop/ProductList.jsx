@@ -1,8 +1,6 @@
-import useFetchCategories from "../../hooks/useFetchCategories";
 import ProductItems from "../products/ProductItems";
 
-const ProductList = ({ products, isLoading, error }) => {
-  const categories = useFetchCategories()
+const ProductList = ({ products, isLoading, error, categories }) => {
   const classes =
     "text-pink-500 text-center h-screen flex justify-center items-center";
   if (isLoading) {

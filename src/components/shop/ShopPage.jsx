@@ -6,6 +6,7 @@ import FilteringSection from "./FilteringSection";
 import useFetchCategories from "../../hooks/useFetchCategories";
 
 const ShopPage = () => {
+  const {categories} = useFetchCategories();
   const [currentPage, setCurrentPage] = useState(1);
   const [priceRange, setPriceRange] = useState([0, 1000]);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -18,7 +19,6 @@ const ShopPage = () => {
     searchQuary,
     sortPrice
   );
-  const categories = useFetchCategories();
 
   const handlePriceRange = (index, value) => {
     setPriceRange((prev) => {
@@ -46,6 +46,8 @@ const ShopPage = () => {
         products={products}
         isLoading={isLoading}
         error={error}
+        categories={categories}
+
       />
       <Pagination
         totalPages={totalPages}
