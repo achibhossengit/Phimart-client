@@ -4,9 +4,11 @@ import ReviewForm from "./ReviewForm";
 import ReviewList from "./ReviewList";
 import { useParams } from "react-router";
 import apiClient from "../../services/api-client";
+import useAuthContext from "../../hooks/useAuthContext";
 
 const ReviewSection = () => {
   const { id } = useParams();
+  const {user} = useAuthContext()
   const [reviewPermission, setReviewPermission] = useState(false);
   const [reviews, setReviews] = useState([]);
   const [formLoading, setFormLoading] = useState(false);
@@ -68,7 +70,7 @@ const ReviewSection = () => {
             <span className="loading loading-ring loading-md"></span>
           </div>
         ) : (
-          <ReviewList reviews={reviews} />
+          <ReviewList reviews={reviews} user={user}/>
         )}
       </div>
     </div>
