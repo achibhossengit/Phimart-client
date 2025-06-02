@@ -8,9 +8,11 @@ import useAuthContext from "../../hooks/useAuthContext";
 
 const ReviewSection = () => {
   const { id } = useParams();
-  const {user} = useAuthContext()
+  const { user } = useAuthContext();
   const [reviewPermission, setReviewPermission] = useState(false);
   const [reviews, setReviews] = useState([]);
+  const [editReview, setEditReview] = useState({ ratings: 0, comment: "" });
+  const [editingId, setEditingId] = useState(null);
   const [formLoading, setFormLoading] = useState(false);
   const [reviewsLoading, setReviewsLoading] = useState(false);
 
@@ -47,6 +49,16 @@ const ReviewSection = () => {
     }
   };
 
+  const handleUpdateReview = async(productId, reviewId)=>{
+    try {
+      await authApiClient.put(`/products/${productId}/reviews/${reviewId}/`, editReview)
+      setEditingId(null)
+      loadReviews()
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     checkUserPermission();
     loadReviews();
@@ -55,7 +67,9 @@ const ReviewSection = () => {
     <div>
       <div className="flex justify-between items-center pt-5 pb-2 border-b-2 border-gray-300">
         <h2 className="text-2xl font-bold text-gray-600">Customer Reviews</h2>
-        <p className="text-gray-600">{reviews.length} {reviews.length > 1 ? 'reviews': 'review'}</p>
+        <p className="text-gray-600">
+          {reviews.length} {reviews.length > 1 ? "reviews" : "review"}
+        </p>
       </div>
       <div>
         {formLoading ? (
@@ -70,7 +84,15 @@ const ReviewSection = () => {
             <span className="loading loading-ring loading-md"></span>
           </div>
         ) : (
-          <ReviewList reviews={reviews} user={user}/>
+          <ReviewList
+            reviews={reviews}
+            user={user}
+            editReview={editReview}
+            setEditReview={setEditReview}
+            editingId={editingId}
+            setEditingId={setEditingId}
+            handleUpdateReview={handleUpdateReview}
+          />
         )}
       </div>
     </div>
