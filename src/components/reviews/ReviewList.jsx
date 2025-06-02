@@ -6,7 +6,7 @@ const ReviewList = ({reviews}) => {
       {reviews.length <= 0 ? (
         <p className="text-center py-10">No reviews Available.</p>
       ) : (
-        reviews.map((review) => <ReviewCard key={review.id} review={review} />)
+        reviews.slice().reverse().map((review) => <ReviewCard key={review.id} review={review} />)
       )}
     </div>
   );
