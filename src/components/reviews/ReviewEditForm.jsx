@@ -1,7 +1,6 @@
 import StarRating from "./StarRating";
 
 const ReviewEditForm = ({ editReview, setEditReview, onCancelEdit, onEditSave }) => {
-  console.log(editReview);
   return (
     <div className="h-auto min-h-[120px] bg-gray-50 p-4 rounded-lg border border-gray-200 shadow-sm">
       <div className="mb-3">

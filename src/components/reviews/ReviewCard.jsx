@@ -9,14 +9,61 @@ const ReviewCard = ({
   onEditClick,
   isEditing,
   onCancelEdit,
-  handleUpdateReview
+  handleUpdateReview,
 }) => {
   return (
-    <div>
+    <div className="mb-6 last:mb-0">
       {!isEditing ? (
-        <div className="flex justify-between items-center py-5 border-b-1 border-gray-300">
-          <div>
-            <h3 className="text-xl font-semibold">{review.user.name}</h3>
+        <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
+          <div className="flex justify-between items-start gap-4">
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-2">
+                <h3 className="text-lg font-semibold text-gray-800">
+                  {review.user.name}
+                </h3>
+                <div className="flex gap-1">
+                  {[...Array(5)].map((_, i) => {
+                    const value = i + 1;
+                    return (
+                      <FaStar
+                        key={value}
+                        className={`${
+                          value <= review.ratings
+                            ? "text-yellow-400"
+                            : "text-gray-200"
+                        }`}
+                        size={18}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+              <p className="text-gray-600 mt-3 leading-relaxed">
+                {review.comment}
+              </p>
+            </div>
+
+            {user?.id === review?.user.id && (
+              <div className="flex gap-2">
+                <button
+                  onClick={onEditClick}
+                  className="px-3 py-1.5 text-sm text-blue-600 bg-blue-50 rounded-md hover:bg-blue-100 transition-colors cursor-pointer"
+                >
+                  Edit
+                </button>
+                <button className="px-3 py-1.5 text-sm text-red-600 bg-red-50 rounded-md hover:bg-red-100 transition-colors cursor-pointer">
+                  Delete
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+          <div className="mb-3 flex items-center gap-3">
+            <h3 className="text-lg font-semibold text-gray-800">
+              {review.user.name}
+            </h3>
             <div className="flex gap-1">
               {[...Array(5)].map((_, i) => {
                 const value = i + 1;
@@ -24,38 +71,21 @@ const ReviewCard = ({
                   <FaStar
                     key={value}
                     className={`${
-                      value <= review.ratings
-                        ? "text-yellow-300"
-                        : "text-gray-300"
+                      value <= editReview.ratings
+                        ? "text-yellow-400"
+                        : "text-gray-200"
                     }`}
-                    size={16}
+                    size={18}
                   />
                 );
               })}
             </div>
-            <p className="text-gray-500 mt-5">{review.comment}</p>
           </div>
-          {user?.id === review?.user.id && (
-            <div>
-              <div className="flex gap-2">
-                <button
-                  onClick={onEditClick}
-                  className="btn btn-outline btn-primary"
-                >
-                  Edit
-                </button>
-                <button className="btn btn-outline btn-error">Delete</button>
-              </div>
-            </div>
-          )}
-        </div>
-      ) : (
-        <div>
           <ReviewEditForm
             editReview={editReview}
             setEditReview={setEditReview}
             onCancelEdit={onCancelEdit}
-            onEditSave={()=>handleUpdateReview(review.product, review.id)}
+            onEditSave={() => handleUpdateReview(review.product, review.id)}
           />
         </div>
       )}
