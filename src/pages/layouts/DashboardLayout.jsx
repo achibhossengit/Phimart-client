@@ -15,7 +15,7 @@ const DashboardLayout = () => {
     <section>
       <button
         onClick={handleSidebar}
-        className={`mx-3 mt-5 text-2xl animate-pulse text-pink-500 bg-transparen p-2 rounded-sm cursor-pointer md:hidden fixed z-10 border-1 border-gray-300`}
+        className={`mx-3 mt-5 text-2xl animate-pulse text-pink-500 bg-transparen p-2 rounded-sm cursor-pointer md:hidden border-1 border-gray-300`}
       >
         <GiHamburgerMenu />
       </button>
