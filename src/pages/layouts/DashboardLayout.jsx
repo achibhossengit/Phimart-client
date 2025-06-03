@@ -10,7 +10,7 @@ const DashboardLayout = () => {
   const handleSidebar = () => {
     setOpenSidebar(!openSidebar);
   };
-//   console.log(user); // trigger on every click??
+  //   console.log(user); // trigger on every click??
   return (
     <section>
       <Navbar
@@ -19,13 +19,15 @@ const DashboardLayout = () => {
         user={user}
         logoutUser={logoutUser}
       />
-      <Sidebar openSidebar={openSidebar} />
+      <div className="flex">
+        <Sidebar openSidebar={openSidebar} />
 
-      <div
-        onClick={() => setOpenSidebar(false)}
-        className="w-full px-5 min-h-screen"
-      >
-        <Outlet/>
+        <div
+          onClick={() => setOpenSidebar(false)}
+          className="w-full px-5 min-h-screen"
+        >
+          <Outlet />
+        </div>
       </div>
     </section>
   );

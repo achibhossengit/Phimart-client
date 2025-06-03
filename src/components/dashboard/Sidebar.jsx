@@ -7,15 +7,14 @@ import { Link } from "react-router";
 import useAuthContext from "../../hooks/useAuthContext";
 
 const Sidebar = ({ openSidebar }) => {
-  const {user} = useAuthContext()
+  const { user } = useAuthContext();
 
-  
   const CustomerMenuItems = [
     { to: "orders", icon: CiShoppingCart, label: "Orders" },
     { to: "cart", icon: CiShoppingCart, label: "Your Cart" },
     { to: "reviews", icon: IoMdStarOutline, label: "Reviews" },
   ];
-  
+
   const StaffMenuItems = [
     { to: "/dashboard", icon: VscGraph, label: "Dashboard" },
     { to: "products", icon: BsBoxSeamFill, label: "Products" },
@@ -31,12 +30,12 @@ const Sidebar = ({ openSidebar }) => {
     { to: "users", icon: FaUsers, label: "Users" },
   ];
 
-  const menuItems = user.is_staff ? StaffMenuItems : CustomerMenuItems
+  const menuItems = user.is_staff ? StaffMenuItems : CustomerMenuItems;
   return (
     <div
-      className={`absolute z-10 h-full w-64 pt-5 bg-pink-50 transition-transform duration-300 pl-5 ${
-        openSidebar ? "translate-x-0" : "-translate-x-full"
-      }`}
+      className={`min-h-screen w-64 pt-5 pl-5 z-10 bg-pink-50 absolute md:static -translate-x-full md:translate-x-0 transition-transform duration-200 ${
+        openSidebar && "translate-x-0"
+      } `}
     >
       <ul className="space-y-5">
         {menuItems.map((item, index) => (

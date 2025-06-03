@@ -14,7 +14,7 @@ const Navbar = ({ handleSidebar, openSidebar, user, logoutUser }) => {
         </NavLink>
         <button
           onClick={handleSidebar}
-          className="px-3 py-2 text-2xl gap-2 hover:bg-gray-200 cursor-pointer"
+          className="px-3 py-2 text-2xl gap-2 hover:bg-gray-200 cursor-pointer md:hidden"
         >
           {openSidebar ? <IoCloseSharp /> : <GiHamburgerMenu />}
         </button>
@@ -22,7 +22,9 @@ const Navbar = ({ handleSidebar, openSidebar, user, logoutUser }) => {
       <div>
         <div className="dropdown dropdown-end">
           <div className="flex items-center gap-2">
-            <h3 className="font-semibold">{user.first_name} {user.last_name}</h3>
+            <h3 className="font-semibold">
+              {user.first_name} {user.last_name}
+            </h3>
             <div
               tabIndex={0}
               role="button"
@@ -41,7 +43,7 @@ const Navbar = ({ handleSidebar, openSidebar, user, logoutUser }) => {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             <li>
-              <NavLink to={'profile'} className="justify-between">
+              <NavLink to={"profile"} className="justify-between">
                 Profile
                 <span className="badge">New</span>
               </NavLink>
