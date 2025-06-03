@@ -1,32 +1,38 @@
-import { BsBoxSeamFill } from "react-icons/bs";
+import { BsBoxSeamFill, BsCartPlusFill } from "react-icons/bs";
 import { CiShoppingCart } from "react-icons/ci";
-import { FaTag, FaUsers } from "react-icons/fa";
+import { FaBookOpen, FaHistory, FaTag, FaUser, FaUsers } from "react-icons/fa";
 import { IoIosAddCircleOutline, IoMdStarOutline } from "react-icons/io";
 import { VscGraph } from "react-icons/vsc";
 import { Link } from "react-router";
 import useAuthContext from "../../hooks/useAuthContext";
+import { HiOutlineDocumentAdd } from "react-icons/hi";
+
 
 const Sidebar = ({ openSidebar }) => {
   const { user } = useAuthContext();
 
   const CustomerMenuItems = [
+    { to: "/profile", icon: FaUser, label: "My Profile" },
     { to: "orders", icon: CiShoppingCart, label: "Orders" },
-    { to: "cart", icon: CiShoppingCart, label: "Your Cart" },
-    { to: "reviews", icon: IoMdStarOutline, label: "Reviews" },
+    { to: "cart", icon: BsCartPlusFill, label: "My Cart" },
+    { to: "", icon: IoMdStarOutline, label: "My Ratings & Reviews" },
+    { to: "", icon: FaBookOpen, label: "Bookshelf" },
+    { to: "", icon: FaHistory, label: "History" },
   ];
 
   const StaffMenuItems = [
-    { to: "/dashboard", icon: VscGraph, label: "Dashboard" },
+    { to: "/profile", icon: FaUser, label: "My Profile" },
+    { to: "/dashboard", icon: VscGraph, label: "Recent Orders" },
     { to: "products", icon: BsBoxSeamFill, label: "Products" },
     {
       to: "addproduct",
       icon: IoIosAddCircleOutline,
       label: "Add Products",
     },
+    { to: "add-categories", icon: HiOutlineDocumentAdd, label: "Add Category" },
     { to: "categories", icon: FaTag, label: "Categories" },
     { to: "orders", icon: CiShoppingCart, label: "Orders" },
-    { to: "cart", icon: CiShoppingCart, label: "Your Cart" },
-    { to: "reviews", icon: IoMdStarOutline, label: "Reviews" },
+    { to: "reviews", icon: IoMdStarOutline, label: "Product Reviews" },
     { to: "users", icon: FaUsers, label: "Users" },
   ];
 

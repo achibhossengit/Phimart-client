@@ -1,16 +1,58 @@
+import { BsBoxSeamFill, BsCartPlusFill } from "react-icons/bs";
+import { CiShoppingCart } from "react-icons/ci";
+import { FaBookOpen, FaHistory, FaTag, FaUser, FaUsers } from "react-icons/fa";
+import { IoIosAddCircleOutline, IoMdStarOutline } from "react-icons/io";
+import { VscGraph } from "react-icons/vsc";
 import { Link, NavLink } from "react-router";
 import useAuthContext from "../../hooks/useAuthContext";
-import useCart from "../../hooks/useCart";
+import { HiOutlineDocumentAdd } from "react-icons/hi";
+import { PiUserCircleGearThin } from "react-icons/pi";
 import { useEffect } from "react";
+import { LuLogOut } from "react-icons/lu";
 
 const Navbar = () => {
   const { user, logoutUser } = useAuthContext();
-  const { cart, createOrGetCart } = useCart();
+  const { cart, createOrGetCart } = PiUserCircleGearThin();
+
+  const mainMenu = [
+    { to: "/shop", label: "Collections" },
+    { to: "", label: "Categories" },
+    { to: "", label: "Tranding Books" },
+    { to: "", label: "About Us" },
+  ];
+
+  const CustomerMenuItems = [
+    { to: "dashboard/profile", icon: FaUser, label: "My Profile" },
+    { to: "orders", icon: CiShoppingCart, label: "Orders" },
+    { to: "cart", icon: BsCartPlusFill, label: "My Cart" },
+    { to: "", icon: IoMdStarOutline, label: "My Ratings & Reviews" },
+    { to: "", icon: FaBookOpen, label: "Bookshelf" },
+    { to: "", icon: FaHistory, label: "History" },
+  ];
+
+  const StaffMenuItems = [
+    { to: "dashboard/profile", icon: FaUser, label: "My Profile" },
+    { to: "/dashboard", icon: VscGraph, label: "Recent Orders" },
+    { to: "products", icon: BsBoxSeamFill, label: "Products" },
+    {
+      to: "addproduct",
+      icon: IoIosAddCircleOutline,
+      label: "Add Products",
+    },
+    { to: "add-categories", icon: HiOutlineDocumentAdd, label: "Add Category" },
+    { to: "categories", icon: FaTag, label: "Categories" },
+    { to: "orders", icon: CiShoppingCart, label: "Orders" },
+    { to: "reviews", icon: IoMdStarOutline, label: "Product Reviews" },
+    { to: "users", icon: FaUsers, label: "Users" },
+  ];
+
+  const menuItems = user?.is_staff ? StaffMenuItems : CustomerMenuItems;
+
   useEffect(() => {
     const fetchCart = async () => {
-      if(user) await createOrGetCart();
+      if (user) await createOrGetCart();
     };
-    fetchCart()
+    fetchCart();
   }, []);
   return (
     <div className="navbar bg-base-100 shadow-sm">
@@ -33,54 +75,48 @@ const Navbar = () => {
               />{" "}
             </svg>
           </div>
+          {/* mainMenu container (mobile divices) */}
           <ul
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
-            <li>
-              <a>About</a>
-            </li>
-            <li>
-              <a>Parent</a>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <NavLink to="/shop">Shop</NavLink>
-            </li>
+            {mainMenu.map((item, index) => (
+              <li key={index}>
+                {"to" in item ? (
+                  <Link
+                    to={item.to}
+                    className="flex items-center text-gray-600 gap-2 font-semibold hover:bg-pink-200 p-2 rounded-md"
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <a href={item.anchor}>{item.label}</a>
+                )}
+              </li>
+            ))}
           </ul>
         </div>
         <NavLink to="/" className="btn btn-ghost text-xl">
-          PhiMart
+          PhiBook
         </NavLink>
       </div>
+      {/* mainMenu container (desktop deviecs) */}
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
-          <li>
-            <a>About</a>
-          </li>
-          <li>
-            <details>
-              <summary>Parent</summary>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </details>
-          </li>
-          <li>
-            <NavLink to="/shop">Shop</NavLink>
-          </li>
+          {mainMenu.map((item, index) => (
+            <li key={index}>
+              {"to" in item ? (
+                <Link
+                  to={item.to}
+                  className="flex items-center text-gray-600 gap-2 font-semibold hover:bg-pink-200 p-2 rounded-md"
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <a href={item.anchor}>{item.label}</a>
+              )}
+            </li>
+          ))}
         </ul>
       </div>
       <div className="navbar-end">
@@ -125,7 +161,10 @@ const Navbar = () => {
                     Subtotal: ${cart?.total_price || 0}
                   </span>
                   <div className="card-actions">
-                    <Link to={'dashboard/cart'} className="btn btn-primary btn-block">
+                    <Link
+                      to={"dashboard/cart"}
+                      className="btn btn-primary btn-block"
+                    >
                       View cart
                     </Link>
                   </div>
@@ -145,21 +184,26 @@ const Navbar = () => {
                   />
                 </div>
               </div>
+              {/* menu items container */}
               <ul
                 tabIndex={0}
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
               >
-                <li>
-                  <NavLink to={"dashboard/profile"}>Profile</NavLink>
-                </li>
-                <li>
-                  <NavLink to={"/dashboard"} className="justify-between">
-                    Dashboard
-                    <span className="badge">New</span>
-                  </NavLink>
-                </li>
-                <li>
-                  <a onClick={() => logoutUser()}>Logout</a>
+                {menuItems.map((item, index) => (
+                  <li key={index}>
+                    <Link
+                      to={item.to}
+                      className="flex items-center text-gray-600 gap-2 font-semibold hover:bg-pink-200 p-2 rounded-md"
+                    >
+                      <item.icon />
+                      <p>{item.label}</p>
+                    </Link>
+                  </li>
+                ))}
+                <li className="border-t-2 border-gray-300 my-1">
+                  <a onClick={() => logoutUser()}>
+                    <LuLogOut /> Logout
+                  </a>
                 </li>
               </ul>
             </div>
