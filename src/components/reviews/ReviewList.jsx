@@ -7,7 +7,8 @@ const ReviewList = ({
   setEditReview,
   editingId,
   setEditingId,
-  handleUpdateReview
+  handleUpdateReview,
+  handleDeleteReview,
 }) => {
   return (
     <div>
@@ -32,8 +33,9 @@ const ReviewList = ({
                   comment: review.comment,
                 });
               }}
-              onCancelEdit={()=>setEditingId(null)}
+              onCancelEdit={() => setEditingId(null)}
               handleUpdateReview={handleUpdateReview}
+              handleDeleteReview={handleDeleteReview}
             />
           ))
       )}

@@ -49,15 +49,27 @@ const ReviewSection = () => {
     }
   };
 
-  const handleUpdateReview = async(productId, reviewId)=>{
+  const handleUpdateReview = async (productId, reviewId) => {
     try {
-      await authApiClient.put(`/products/${productId}/reviews/${reviewId}/`, editReview)
-      setEditingId(null)
-      loadReviews()
+      await authApiClient.put(
+        `/products/${productId}/reviews/${reviewId}/`,
+        editReview
+      );
+      setEditingId(null);
+      loadReviews();
     } catch (error) {
       console.log(error);
     }
-  }
+  };
+
+  const handleDeleteReview = async (productId, reviewId) => {
+    try {
+      await authApiClient.delete(`/products/${productId}/reviews/${reviewId}/`);
+      loadReviews();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     checkUserPermission();
@@ -92,6 +104,7 @@ const ReviewSection = () => {
             editingId={editingId}
             setEditingId={setEditingId}
             handleUpdateReview={handleUpdateReview}
+            handleDeleteReview={handleDeleteReview}
           />
         )}
       </div>

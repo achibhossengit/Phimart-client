@@ -10,6 +10,7 @@ const ReviewCard = ({
   isEditing,
   onCancelEdit,
   handleUpdateReview,
+  handleDeleteReview
 }) => {
   return (
     <div className="mb-6 last:mb-0">
@@ -51,7 +52,7 @@ const ReviewCard = ({
                 >
                   Edit
                 </button>
-                <button className="px-3 py-1.5 text-sm text-red-600 bg-red-50 rounded-md hover:bg-red-100 transition-colors cursor-pointer">
+                <button onClick={()=>handleDeleteReview(review.product, review.id)} className="px-3 py-1.5 text-sm text-red-600 bg-red-50 rounded-md hover:bg-red-100 transition-colors cursor-pointer">
                   Delete
                 </button>
               </div>
