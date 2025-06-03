@@ -7,11 +7,11 @@ import { Link } from "react-router";
 import useAuthContext from "../../hooks/useAuthContext";
 import { HiOutlineDocumentAdd } from "react-icons/hi";
 
-const Sidebar = ({ openSidebar }) => {
+const Sidebar = ({ openSidebar, selectedItem }) => {
   const { user } = useAuthContext();
 
   const CustomerMenuItems = [
-    { to: "/profile", icon: FaUser, label: "My Profile" },
+    { to: "profile", icon: FaUser, label: "My Profile" },
     { to: "orders", icon: CiShoppingCart, label: "Orders" },
     { to: "cart", icon: BsCartPlusFill, label: "My Cart" },
     { to: "", icon: IoMdStarOutline, label: "My Ratings & Reviews" },
@@ -20,8 +20,8 @@ const Sidebar = ({ openSidebar }) => {
   ];
 
   const StaffMenuItems = [
-    { to: "/profile", icon: FaUser, label: "My Profile" },
-    { to: "/dashboard", icon: VscGraph, label: "Recent Orders" },
+    { to: "profile", icon: FaUser, label: "My Profile" },
+    { to: "dashboard", icon: VscGraph, label: "Recent Orders" },
     { to: "products", icon: BsBoxSeamFill, label: "Products" },
     {
       to: "addproduct",
@@ -44,10 +44,12 @@ const Sidebar = ({ openSidebar }) => {
     >
       <ul className="space-y-5">
         {menuItems.map((item, index) => (
-          <li key={index}>
+          <li onClick={() => setSelectedItem(item.label)} key={index}>
             <Link
               to={item.to}
-              className="flex items-center text-gray-600 gap-2 font-semibold hover:bg-pink-200 p-2 rounded-md"
+              className={`flex ${
+                selectedItem == item.to ? "bg-pink-500 text-white" : ""
+              } items-center text-gray-600 gap-2 font-semibold hover:bg-pink-200 p-2 rounded-md`}
             >
               <item.icon />
               <p>{item.label}</p>

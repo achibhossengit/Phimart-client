@@ -23,8 +23,8 @@ const Navbar = () => {
 
   const CustomerMenuItems = [
     { to: "dashboard/profile", icon: FaUser, label: "My Profile" },
-    { to: "orders", icon: CiShoppingCart, label: "Orders" },
-    { to: "cart", icon: BsCartPlusFill, label: "My Cart" },
+    { to: "dashboard/orders", icon: CiShoppingCart, label: "Orders" },
+    { to: "dashboard/cart", icon: BsCartPlusFill, label: "My Cart" },
     { to: "", icon: IoMdStarOutline, label: "My Ratings & Reviews" },
     { to: "", icon: FaBookOpen, label: "Bookshelf" },
     { to: "", icon: FaHistory, label: "History" },
@@ -32,18 +32,26 @@ const Navbar = () => {
 
   const StaffMenuItems = [
     { to: "dashboard/profile", icon: FaUser, label: "My Profile" },
-    { to: "/dashboard", icon: VscGraph, label: "Recent Orders" },
-    { to: "products", icon: BsBoxSeamFill, label: "Products" },
+    { to: "dashboard", icon: VscGraph, label: "Recent Orders" },
+    { to: "dashboard/products", icon: BsBoxSeamFill, label: "Products" },
     {
       to: "addproduct",
       icon: IoIosAddCircleOutline,
       label: "Add Products",
     },
-    { to: "add-categories", icon: HiOutlineDocumentAdd, label: "Add Category" },
-    { to: "categories", icon: FaTag, label: "Categories" },
-    { to: "orders", icon: CiShoppingCart, label: "Orders" },
-    { to: "reviews", icon: IoMdStarOutline, label: "Product Reviews" },
-    { to: "users", icon: FaUsers, label: "Users" },
+    {
+      to: "dashboard/add-categories",
+      icon: HiOutlineDocumentAdd,
+      label: "Add Category",
+    },
+    { to: "dashboard/categories", icon: FaTag, label: "Categories" },
+    { to: "dashboard/orders", icon: CiShoppingCart, label: "Orders" },
+    {
+      to: "dashboard/reviews",
+      icon: IoMdStarOutline,
+      label: "Product Reviews",
+    },
+    { to: "dashboard/users", icon: FaUsers, label: "Users" },
   ];
 
   const menuItems = user?.is_staff ? StaffMenuItems : CustomerMenuItems;

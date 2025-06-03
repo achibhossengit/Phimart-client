@@ -1,10 +1,13 @@
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import Sidebar from "../../components/dashboard/Sidebar";
 import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 const DashboardLayout = () => {
   const [openSidebar, setOpenSidebar] = useState(false);
+  const location = useLocation();
+  const lastPath = location.pathname.split("/").pop();
+
   const handleSidebar = () => {
     setOpenSidebar(!openSidebar);
   };
@@ -17,7 +20,7 @@ const DashboardLayout = () => {
         <GiHamburgerMenu />
       </button>
       <div className="flex">
-        <Sidebar openSidebar={openSidebar} />
+        <Sidebar openSidebar={openSidebar} selectedItem={lastPath} />
 
         <div
           onClick={() => setOpenSidebar(false)}
