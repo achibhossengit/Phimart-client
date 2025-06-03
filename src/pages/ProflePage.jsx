@@ -48,17 +48,18 @@ const ProflePage = () => {
       }
     } catch (error) {
       console.log(error);
-    } finally{
+    } finally {
       setIsLoading(false);
     }
   };
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="max-w-md mx-auto bg-gray-200 p-6 rounded-lg shadow-lg mt-10"
+      className="max-w-md mx-auto bg-gray-200 p-6 rounded-lg shadow-lg mt-5"
     >
       {/* error hadiling block */}
-      {(alert.status == "profile_update_error" || alert.status == 'change_password_error') && (
+      {(alert.status == "profile_update_error" ||
+        alert.status == "change_password_error") && (
         <AlertError message={alert.message} />
       )}
       {alert.status == "profile_update_success" && (
@@ -73,7 +74,11 @@ const ProflePage = () => {
         errors={errors}
         watch={watch}
       />
-      <ChangeButton isLoading={isLoading} isEdit={isEdit} handleIsEdit={handleIsEdit} />
+      <ChangeButton
+        isLoading={isLoading}
+        isEdit={isEdit}
+        handleIsEdit={handleIsEdit}
+      />
     </form>
   );
 };

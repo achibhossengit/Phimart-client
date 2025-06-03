@@ -7,7 +7,6 @@ import { Link } from "react-router";
 import useAuthContext from "../../hooks/useAuthContext";
 import { HiOutlineDocumentAdd } from "react-icons/hi";
 
-
 const Sidebar = ({ openSidebar }) => {
   const { user } = useAuthContext();
 
@@ -39,7 +38,7 @@ const Sidebar = ({ openSidebar }) => {
   const menuItems = user.is_staff ? StaffMenuItems : CustomerMenuItems;
   return (
     <div
-      className={`min-h-screen w-64 pt-5 pl-5 z-10 bg-pink-50 absolute md:static -translate-x-full md:translate-x-0 transition-transform duration-200 ${
+      className={`min-h-screen my-5 min-w-64 pt-5 px-5 z-10 bg-base-300 rounded-md md:ml-5 absolute md:static -translate-x-full md:translate-x-0 transition-transform duration-200 ${
         openSidebar && "translate-x-0"
       } `}
     >

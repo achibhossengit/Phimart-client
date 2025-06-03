@@ -29,24 +29,30 @@ const AppRoutes = () => {
           <Route path="shop/:id" element={<ProductDetails />} />
           <Route path="login" element={<Login />} />
           <Route path="registration" element={<Registration />} />
-          <Route path="registrationSuccess/:email" element={<RegisterBlank />} />
+          <Route
+            path="registrationSuccess/:email"
+            element={<RegisterBlank />}
+          />
           <Route path="activate/:uid/:token" element={<Resgister />} />
           <Route path="password/reset" element={<ResetPasswordPage />} />
-          <Route path="password/reset/confirm/:uid/:token" element={<ResetConfirmPage />} />
-        </Route>
-        <Route
-          path="dashboard"
-          element={
-            <PrivateRoute>
-              <DashboardLayout />
-            </PrivateRoute>
-          }
-        >
-          <Route index element={<Dashboard />} />
-          <Route path="profile" element={<ProflePage />} />
-          <Route path="cart" element={<Cart />} />
-          <Route path="orders" element={<Orders />} />
-          <Route path="addproduct" element={<AddProduct />} />
+          <Route
+            path="password/reset/confirm/:uid/:token"
+            element={<ResetConfirmPage />}
+          />
+          <Route
+            path="dashboard"
+            element={
+              <PrivateRoute>
+                <DashboardLayout />
+              </PrivateRoute>
+            }
+          >
+            <Route index element={<Dashboard />} />
+            <Route path="profile" element={<ProflePage />} />
+            <Route path="cart" element={<Cart />} />
+            <Route path="orders" element={<Orders />} />
+            <Route path="addproduct" element={<AddProduct />} />
+          </Route>
         </Route>
       </Routes>
     </>

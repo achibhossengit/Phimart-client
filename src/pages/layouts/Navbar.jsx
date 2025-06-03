@@ -55,69 +55,49 @@ const Navbar = () => {
     fetchCart();
   }, []);
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className="navbar bg-pink-50">
       <div className="navbar-start">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              {" "}
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />{" "}
-            </svg>
-          </div>
-          {/* mainMenu container (mobile divices) */}
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-          >
-            {mainMenu.map((item, index) => (
-              <li key={index}>
-                {"to" in item ? (
-                  <Link
-                    to={item.to}
-                    className="flex items-center text-gray-600 gap-2 font-semibold hover:bg-pink-200 p-2 rounded-md"
-                  >
-                    {item.label}
-                  </Link>
-                ) : (
-                  <a href={item.anchor}>{item.label}</a>
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
         <NavLink to="/" className="btn btn-ghost text-xl">
           PhiBook
         </NavLink>
       </div>
       {/* mainMenu container (desktop deviecs) */}
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
+      <div className="navbar-center">
+        {/* Desktop Menu (hidden on mobile) */}
+        <ul className="menu menu-horizontal px-1 hidden md:flex">
           {mainMenu.map((item, index) => (
             <li key={index}>
-              {"to" in item ? (
+              <Link
+                to={item.to}
+                className="flex items-center text-gray-600 gap-2 font-semibold hover:bg-pink-200 p-2 rounded-md"
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        {/* Mobile Accordion (visible on mobile) */}
+        <div className="dropdown dropdown-center md:hidden">
+          <div tabIndex={0} role="button" className="btn btn-ghost m-1">
+            Menu
+          </div>
+          <ul
+            tabIndex={0}
+            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+          >
+            {mainMenu.map((item, index) => (
+              <li key={index}>
                 <Link
                   to={item.to}
                   className="flex items-center text-gray-600 gap-2 font-semibold hover:bg-pink-200 p-2 rounded-md"
                 >
                   {item.label}
                 </Link>
-              ) : (
-                <a href={item.anchor}>{item.label}</a>
-              )}
-            </li>
-          ))}
-        </ul>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
       <div className="navbar-end">
         {user ? (
