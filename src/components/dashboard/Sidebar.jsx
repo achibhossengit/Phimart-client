@@ -44,7 +44,7 @@ const Sidebar = ({ openSidebar, selectedItem }) => {
     >
       <ul className="space-y-5">
         {menuItems.map((item, index) => (
-          <li onClick={() => setSelectedItem(item.label)} key={index}>
+          <li key={index}>
             <Link
               to={item.to}
               className={`flex ${
