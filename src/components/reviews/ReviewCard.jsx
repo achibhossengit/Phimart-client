@@ -1,5 +1,6 @@
 import { FaStar } from "react-icons/fa";
 import ReviewEditForm from "./ReviewEditForm";
+import { useLocation } from "react-router";
 
 const ReviewCard = ({
   review,
@@ -10,8 +11,10 @@ const ReviewCard = ({
   isEditing,
   onCancelEdit,
   handleUpdateReview,
-  handleDeleteReview
+  handleDeleteReview,
 }) => {
+  const location = useLocation();
+  const isMyReview = location.pathname.split("/").includes("my-reviews", 0);
   return (
     <div className="mb-6 last:mb-0">
       {!isEditing ? (
@@ -19,9 +22,15 @@ const ReviewCard = ({
           <div className="flex justify-between items-start gap-4">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-2">
-                <h3 className="text-lg font-semibold text-gray-800">
-                  {review.user.name}
-                </h3>
+                {isMyReview ? (
+                  <h3 className="text-lg font-semibold text-gray-800">
+                    Product Id: {review.product}
+                  </h3>
+                ) : (
+                  <h3 className="text-lg font-semibold text-gray-800">
+                    {review.user.name}
+                  </h3>
+                )}
                 <div className="flex gap-1">
                   {[...Array(5)].map((_, i) => {
                     const value = i + 1;
@@ -52,7 +61,10 @@ const ReviewCard = ({
                 >
                   Edit
                 </button>
-                <button onClick={()=>handleDeleteReview(review.product, review.id)} className="px-3 py-1.5 text-sm text-red-600 bg-red-50 rounded-md hover:bg-red-100 transition-colors cursor-pointer">
+                <button
+                  onClick={() => handleDeleteReview(review.product, review.id)}
+                  className="px-3 py-1.5 text-sm text-red-600 bg-red-50 rounded-md hover:bg-red-100 transition-colors cursor-pointer"
+                >
                   Delete
                 </button>
               </div>

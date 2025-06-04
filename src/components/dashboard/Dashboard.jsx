@@ -2,8 +2,8 @@ import { BsBoxSeamFill } from "react-icons/bs";
 import { CiShoppingCart } from "react-icons/ci";
 import { FaTag } from "react-icons/fa";
 import { IoMdStarOutline } from "react-icons/io";
-import Cart from "../components/dashboard/Cart";
-import Orders from "../components/dashboard/Orders";
+import Cart from "./Cart";
+import Orders from "./Orders";
 
 const Dashboard = () => {
   return (

@@ -5,7 +5,7 @@ import Home from "../pages/Home";
 import Shop from "../pages/Shop";
 import Login from "../pages/Login";
 import Registration from "../pages/Registration";
-import Dashboard from "../pages/Dashboard";
+import Dashboard from "../components/dashboard/Dashboard";
 import PrivateRoute from "../components/PrivateRoute";
 import Resgister from "../components/Register/Register";
 import RegisterBlank from "../components/Register/RegisterBlank";
@@ -17,6 +17,7 @@ import ProductDetails from "../pages/ProductDetails";
 import Cart from "../pages/Cart";
 import Orders from "../pages/Orders";
 import AddProduct from "../pages/AddProduct";
+import RatingHistory from "../components/dashboard/RatingHistory";
 
 const AppRoutes = () => {
   return (
@@ -51,6 +52,7 @@ const AppRoutes = () => {
             <Route path="profile" element={<ProflePage />} />
             <Route path="cart" element={<Cart />} />
             <Route path="orders" element={<Orders />} />
+            <Route path="my-reviews" element={<RatingHistory />} />
             <Route path="addproduct" element={<AddProduct />} />
           </Route>
         </Route>

@@ -14,7 +14,7 @@ const Sidebar = ({ openSidebar, selectedItem }) => {
     { to: "profile", icon: FaUser, label: "My Profile" },
     { to: "cart", icon: BsCartPlusFill, label: "My Cart" },
     { to: "orders", icon: FaHistory, label: "Orders History" },
-    { to: "", icon: IoMdStarOutline, label: "My Ratings & Reviews" },
+    { to: "my-reviews", icon: IoMdStarOutline, label: "My Ratings & Reviews" },
     { to: "", icon: FaBookOpen, label: "Bookshelf" },
   ];
 
@@ -30,6 +30,7 @@ const Sidebar = ({ openSidebar, selectedItem }) => {
     { to: "add-categories", icon: HiOutlineDocumentAdd, label: "Add Category" },
     { to: "categories", icon: FaTag, label: "Categories" },
     { to: "orders", icon: CiShoppingCart, label: "Orders" },
+    { to: "my-reviews", icon: IoMdStarOutline, label: "My Reviews" },
     { to: "reviews", icon: IoMdStarOutline, label: "Product Reviews" },
     { to: "users", icon: FaUsers, label: "Users" },
   ];
