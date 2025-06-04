@@ -28,7 +28,7 @@ const Categories = () => {
     <section id="categories-caruosel" className="bg-gray-100 rounded-lg shadow-lg my-10 py-5 px-5">
       <div className="flex justify-between mb-5">
         <h1 className="text-3xl font-bold">Explore Categories</h1>
-        <button className="bg-pink-500 btn btn-secondary border-none">
+        <button className="bg-pink-500 btn btn-secondary border-none text-white">
           Show All
         </button>
       </div>

@@ -12,7 +12,7 @@ const ProductItems = ({ product, categories }) => {
   return (
     <Link
       to={`/shop/${product.id}`}
-      className="card bg-white w-96 shadow-lg rounded-lg overflow-hidden transform hover:scale-105 hover:shadow-2xl transition duration-300 ease-in-out cursor-pointer"
+      className="card bg-white w-96 shadow-lg rounded-lg overflow-hidden transform hover:scale-105 hover:shadow-2xl transition duration-300 ease-in-out cursor-pointer border-1 border-gray-400"
     >
       <figure className="bg-gray-100">
         <img
