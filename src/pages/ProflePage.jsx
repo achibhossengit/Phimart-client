@@ -24,9 +24,11 @@ const ProflePage = () => {
   } = useForm();
 
   useEffect(() => {
-    Object.keys(user).forEach((key) => {
-      setValue(key, user[key]);
-    });
+    if (user) {
+      Object.keys(user).forEach((key) => {
+        setValue(key, user[key]);
+      });
+    }
   }, [user, setValue]);
 
   const onSubmit = async (data) => {

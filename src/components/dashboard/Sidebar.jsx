@@ -20,7 +20,7 @@ const Sidebar = ({ openSidebar, selectedItem }) => {
 
   const StaffMenuItems = [
     { to: "profile", icon: FaUser, label: "My Profile" },
-    { to: "dashboard", icon: VscGraph, label: "Recent Orders" },
+    { to: "all-orders", icon: VscGraph, label: "Orders Histroy" },
     { to: "products", icon: BsBoxSeamFill, label: "Products" },
     {
       to: "addproduct",
@@ -35,7 +35,7 @@ const Sidebar = ({ openSidebar, selectedItem }) => {
     { to: "users", icon: FaUsers, label: "Users" },
   ];
 
-  const menuItems = user.is_staff ? StaffMenuItems : CustomerMenuItems;
+  const menuItems = user?.is_staff ? StaffMenuItems : CustomerMenuItems;
   return (
     <div
       className={`min-h-screen my-5 min-w-64 pt-5 px-5 z-10 bg-base-300 rounded-md md:ml-5 absolute md:static -translate-x-full md:translate-x-0 transition-transform duration-200 ${
