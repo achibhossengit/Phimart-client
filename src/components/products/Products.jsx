@@ -82,7 +82,7 @@ const Products = () => {
               breakpoints={{
                 640: { slidesPerView: 1 },
                 768: { slidesPerView: 2 },
-                1024: { slidesPerView: 4 },
+                1024: { slidesPerView: 3 },
               }}
               autoplay={{
                 delay: 3000,

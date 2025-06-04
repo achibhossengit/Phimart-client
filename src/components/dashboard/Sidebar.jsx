@@ -12,11 +12,10 @@ const Sidebar = ({ openSidebar, selectedItem }) => {
 
   const CustomerMenuItems = [
     { to: "profile", icon: FaUser, label: "My Profile" },
-    { to: "orders", icon: CiShoppingCart, label: "Orders" },
     { to: "cart", icon: BsCartPlusFill, label: "My Cart" },
+    { to: "orders", icon: FaHistory, label: "Orders History" },
     { to: "", icon: IoMdStarOutline, label: "My Ratings & Reviews" },
     { to: "", icon: FaBookOpen, label: "Bookshelf" },
-    { to: "", icon: FaHistory, label: "History" },
   ];
 
   const StaffMenuItems = [
