@@ -5,7 +5,7 @@ import Home from "../pages/Home";
 import Shop from "../pages/Shop";
 import Login from "../pages/Login";
 import Registration from "../pages/Registration";
-import Dashboard from "../components/dashboard/Dashboard";
+import Dashboard from "../components/dashboard/OrderList";
 import PrivateRoute from "../components/PrivateRoute";
 import Resgister from "../components/Register/Register";
 import RegisterBlank from "../components/Register/RegisterBlank";
