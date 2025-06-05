@@ -18,6 +18,7 @@ import Cart from "../pages/Cart";
 import Orders from "../pages/Orders";
 import AddProduct from "../pages/AddProduct";
 import RatingHistory from "../components/dashboard/RatingHistory";
+import ProductTable from "../components/dashboard/ProductTable";
 
 const AppRoutes = () => {
   return (
@@ -47,6 +48,7 @@ const AppRoutes = () => {
             <Route path="orders" element={<Orders />} />
             <Route path="my-reviews" element={<RatingHistory />} />
             <Route path="addproduct" element={<AddProduct />} />
+            <Route path="products" element={<ProductTable />} />
           </Route>
         </Route>
       </Routes>
