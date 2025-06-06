@@ -3,15 +3,22 @@ import apiClient from "../../services/api-client";
 
 const ProductTable = () => {
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [pageSize] = useState(10);
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
 
-  const fetchProducts = async (page = 1) => {
+  const fetchProducts = async (page = 1, categoryId = null) => {
     setLoading(true);
     try {
-      const res = await apiClient.get(`/products/?page=${page}`);
+      let url = `/products/?page=${page}&page_size=${pageSize}`;
+      if (categoryId) {
+        url += `&category_id=${categoryId}`;
+      }
+
+      const res = await apiClient.get(url);
       setProducts(res.data.results);
       setTotalPages(Math.ceil(res.data.count / pageSize));
     } catch (error) {
@@ -21,9 +28,28 @@ const ProductTable = () => {
     }
   };
 
+  const fetchCategories = async () => {
+    try {
+      const res = await apiClient.get("/categories/");
+      setCategories(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleCategoryClick = (categoryId) => {
+    setSelectedCategoryId(categoryId);
+    setCurrentPage(1); // Reset to first page when changing category
+    fetchProducts(1, categoryId);
+  };
+
   useEffect(() => {
-    fetchProducts(currentPage);
+    fetchProducts(currentPage, selectedCategoryId);
   }, [currentPage]);
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
   const handlePageChange = (newPage) => {
     if (newPage > 0 && newPage <= totalPages) {
@@ -33,6 +59,25 @@ const ProductTable = () => {
 
   return (
     <div className="m-5">
+      <div className="flex justify-center flex-wrap gap-5 mb-5">
+        {categories.map((category) => (
+          <div
+            key={category.id}
+            onClick={() => handleCategoryClick(category.id)}
+            className={`text-center cursor-pointer w-[200px] rounded-md py-7 px-2 ${
+              selectedCategoryId === category.id ? "bg-gray-300" : "bg-gray-100"
+            }`}
+          >
+            <div className="transform hover:scale-105">
+              <h1 className="font-bold text-xl text-gray-600">
+                {category.name}
+              </h1>
+              <p>Total products: {category.product_count}</p>
+              <p>{category.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
       <div className="overflow-x-auto">
         <table className="w-full border-collapse shadow-md rounded-lg overflow-hidden">
           {/* Table Headers */}
