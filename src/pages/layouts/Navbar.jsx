@@ -32,10 +32,10 @@ const Navbar = () => {
 
   const StaffMenuItems = [
     { to: "dashboard/profile", icon: FaUser, label: "My Profile" },
-    { to: "dashboard", icon: VscGraph, label: "Recent Orders" },
+    { to: "dashboard/all-orders", icon: VscGraph, label: "Recent Orders" },
     { to: "dashboard/products", icon: BsBoxSeamFill, label: "Products" },
     {
-      to: "addproduct",
+      to: "dashboard/addproduct",
       icon: IoIosAddCircleOutline,
       label: "Add Products",
     },

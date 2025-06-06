@@ -41,7 +41,14 @@ const AppRoutes = () => {
             path="password/reset/confirm/:uid/:token"
             element={<ResetConfirmPage />}
           />
-          <Route path="dashboard" element={<DashboardLayout />}>
+          <Route
+            path="dashboard"
+            element={
+              <PrivateRoute>
+                <DashboardLayout />
+              </PrivateRoute>
+            }
+          >
             <Route path="all-orders" element={<Dashboard />} />
             <Route path="profile" element={<ProflePage />} />
             <Route path="cart" element={<Cart />} />
