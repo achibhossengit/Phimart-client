@@ -6,13 +6,13 @@ import { VscGraph } from "react-icons/vsc";
 import { Link, NavLink } from "react-router";
 import useAuthContext from "../../hooks/useAuthContext";
 import { HiOutlineDocumentAdd } from "react-icons/hi";
-import { PiUserCircleGearThin } from "react-icons/pi";
-import { useEffect } from "react";
 import { LuLogOut } from "react-icons/lu";
+import useCart from "../../hooks/useCart";
 
 const Navbar = () => {
   const { user, logoutUser } = useAuthContext();
-  const { cart, createOrGetCart } = PiUserCircleGearThin();
+  const { cart, loading } = useCart();
+  console.log('ami loader', loading);
 
   const mainMenu = [
     { to: "/shop", label: "Collections" },
@@ -56,12 +56,6 @@ const Navbar = () => {
 
   const menuItems = user?.is_staff ? StaffMenuItems : CustomerMenuItems;
 
-  useEffect(() => {
-    const fetchCart = async () => {
-      if (user) await createOrGetCart();
-    };
-    fetchCart();
-  }, []);
   return (
     <div className="navbar bg-pink-50">
       <div className="navbar-start">
@@ -133,7 +127,7 @@ const Navbar = () => {
                     />{" "}
                   </svg>
                   <span className="badge badge-sm indicator-item">
-                    {cart?.items.length || 0}
+                    {loading ? <p>Loading...</p> : cart?.items.length}
                   </span>
                 </div>
               </div>
